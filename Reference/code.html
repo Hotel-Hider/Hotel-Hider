@@ -1,0 +1,2541 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      HOTEL HIDER — An Experience Beyond Staying | IMT Manesar, Gurugram
+    </title>
+
+    <!-- Fonts: Newsreader / Bodoni Moda + Outfit / Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&amp;display=swap"
+      rel="stylesheet"
+      class=""
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+      class=""
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                black: "#000000",
+                void: "#070708",
+                surface: "#0f1012",
+                card: "#16171a",
+                dim: "#222328",
+                muted: "#7e808a",
+                light: "#f7f7f8",
+                white: "#ffffff",
+              },
+            },
+            fontFamily: {
+              serif: ['"Bodoni Moda"', "serif"],
+              sans: ['"Plus Jakarta Sans"', "sans-serif"],
+            },
+            letterSpacing: {
+              luxury: "0.22em",
+              wideTag: "0.15em",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      @layer base {
+        html {
+          scroll-behavior: smooth;
+          background-color: #000000;
+          color: #f7f7f8;
+        }
+      }
+
+      /* Subtle 3D Card Hover Perspective */
+      .perspective-container {
+        perspective: 1200px;
+      }
+      .tilt-card {
+        transition:
+          transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+          box-shadow 0.45s ease;
+        transform-style: preserve-3d;
+      }
+      .tilt-card:hover {
+        transform: translateY(-6px) rotateX(1deg) rotateY(-0.5deg);
+        box-shadow:
+          0 30px 60px -15px rgba(0, 0, 0, 0.8),
+          0 0 1px 1px rgba(255, 255, 255, 0.15);
+      }
+
+      /* Hero canvas layer */
+      #hero-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      /* Architectural hairline borders */
+      .border-hairline {
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+      .border-hairline-dark {
+        border-color: rgba(0, 0, 0, 0.12);
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2a2a30;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #44444e;
+      }
+
+      /* Elegant Fade In Keyframe */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fadeInUp {
+        animation: fadeInUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+    </style>
+    <style id="refined-theme-styles">
+      body {
+        background-color: #121316 !important;
+        color: #f3f4f6 !important;
+      }
+      .font-serif {
+        font-family:
+          "Playfair Display", "Cormorant Garamond", Georgia, serif !important;
+        letter-spacing: -0.015em;
+      }
+      .font-sans {
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif !important;
+      }
+
+      /* Lighten background containers */
+      .bg-brand-black,
+      [class*="bg-brand-black"] {
+        background-color: #121316 !important;
+      }
+      .bg-surface-card,
+      [class*="bg-surface-card"] {
+        background-color: #1a1c21 !important;
+        border-color: rgba(255, 255, 255, 0.16) !important;
+      }
+
+      /* Elevate borders and outlines for crispness */
+      .border-hairline,
+      [class*="border-hairline"] {
+        border-color: rgba(255, 255, 255, 0.15) !important;
+      }
+
+      /* Increase text brightness & clarity */
+      .text-muted-editorial,
+      p,
+      .text-gray-400,
+      .text-gray-500 {
+        color: #c4c7cf !important;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      .text-white {
+        color: #ffffff !important;
+      }
+
+      /* Room card surface refinement */
+      #rooms .grid > div,
+      #rooms .border {
+        background-color: #1a1c22 !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+      }
+
+      /* Amenities card refinement */
+      #amenities .border {
+        background-color: #181a1f !important;
+        border-color: rgba(255, 255, 255, 0.14) !important;
+      }
+      #amenities .border:hover {
+        background-color: #20232a !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+      }
+
+      /* Location and contact cards */
+      #location .bg-surface-card,
+      #contact .bg-surface-card,
+      #contact form {
+        background-color: #1a1c22 !important;
+      }
+      input,
+      select,
+      textarea {
+        background-color: #131418 !important;
+        border-color: rgba(255, 255, 255, 0.22) !important;
+        color: #ffffff !important;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-brand-black text-brand-light font-sans antialiased selection:bg-brand-white selection:text-brand-black overflow-x-hidden"
+  >
+    <!-- =========================================================================
+       STICKY LUXURY NAVIGATION BAR
+       ========================================================================= -->
+    <header
+      id="site-header"
+      class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-brand-black/85 backdrop-blur-md border-b border-hairline py-4"
+      style="
+        background-color: rgba(18, 19, 22, 0.88);
+        border-bottom-color: rgba(255, 255, 255, 0.16);
+      "
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between"
+      >
+        <!-- Hotel Logo & Monogram -->
+        <a href="#home" class="flex items-center gap-3.5 group">
+          <div
+            class="w-9 h-9 rounded-sm bg-white p-1 flex items-center justify-center transition-transform group-hover:scale-105"
+          >
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtLz1lBbXKnx-c__X9kJePLYvjjH86En3M3Fms-4pSUsZYG-YKIH4HZNmPxprsXDR3i0ishUJbAgwQ9qScANL4k1qOyMp4O53zCe0JcSh22n7cZ1sFgiNqQr3fLqJtqGeSBiBTFB0f0MWwVr2ywPjLqRPZKRoHz9_pMt42S4w5iAGaJtmWqDCm1uS-YPekwHmE981ZXCqV32I_bH1_Zcgj9WLaO6U_1Lo7nSbDiJnbhuithG28LdhfNw"
+              alt="Hotel Hider Monogram"
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <div class="flex flex-col">
+            <span
+              class="font-serif tracking-luxury text-base uppercase text-white font-semibold leading-none"
+              >HOTEL HIDER</span
+            >
+            <span
+              class="text-[9px] tracking-widest text-brand-muted uppercase font-sans mt-0.5"
+              >MANESAR • RESIDENCE</span
+            >
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav
+          class="hidden lg:flex items-center gap-8 text-[11px] uppercase tracking-luxury font-medium text-brand-muted"
+        >
+          <a
+            href="#home"
+            class="nav-link text-white transition-colors hover:text-white"
+            data-target="home"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="nav-link transition-colors hover:text-white"
+            data-target="about"
+            >About</a
+          >
+          <a
+            href="#rooms"
+            class="nav-link transition-colors hover:text-white"
+            data-target="rooms"
+            >Suites &amp; Rooms</a
+          >
+          <a
+            href="#amenities"
+            class="nav-link transition-colors hover:text-white"
+            data-target="amenities"
+            >Amenities</a
+          >
+          <a
+            href="#gallery"
+            class="nav-link transition-colors hover:text-white"
+            data-target="gallery"
+            >Gallery</a
+          >
+          <a
+            href="#location"
+            class="nav-link transition-colors hover:text-white"
+            data-target="location"
+            >Location</a
+          >
+          <a
+            href="#contact"
+            class="nav-link transition-colors hover:text-white"
+            data-target="contact"
+            >Contact</a
+          >
+        </nav>
+
+        <!-- Booking CTA Button & Mobile Trigger -->
+        <div class="flex items-center gap-4">
+          <a
+            href="#contact"
+            class="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 bg-white text-black text-[11px] font-sans font-semibold tracking-luxury uppercase rounded-none border border-white hover:bg-black hover:text-white transition-all duration-300"
+          >
+            <span class="">Book Your Stay</span>
+            <span class="material-symbols-outlined text-sm font-normal"
+              >north_east</span
+            >
+          </a>
+
+          <!-- Mobile Menu Toggle Button -->
+          <button
+            id="mobile-toggle"
+            aria-label="Toggle Navigation"
+            class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 text-white"
+          >
+            <span
+              class="w-6 h-[1px] bg-white transition-transform duration-300"
+              id="bar1"
+            ></span>
+            <span
+              class="w-6 h-[1px] bg-white transition-opacity duration-300"
+              id="bar2"
+            ></span>
+            <span
+              class="w-6 h-[1px] bg-white transition-transform duration-300"
+              id="bar3"
+            ></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Drawer Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden px-6 pt-4 pb-6 bg-brand-void border-b border-hairline flex flex-col gap-4 text-xs uppercase tracking-luxury"
+      >
+        <a href="#home" class="py-2 text-white hover:text-white mobile-link"
+          >Home</a
+        >
+        <a
+          href="#about"
+          class="py-2 text-brand-muted hover:text-white mobile-link"
+          >About</a
+        >
+        <a
+          href="#rooms"
+          class="py-2 text-brand-muted hover:text-white mobile-link"
+          >Suites &amp; Rooms</a
+        >
+        <a
+          href="#amenities"
+          class="py-2 text-brand-muted hover:text-white mobile-link"
+          >Amenities</a
+        >
+        <a
+          href="#gallery"
+          class="py-2 text-brand-muted hover:text-white mobile-link"
+          >Gallery</a
+        >
+        <a
+          href="#location"
+          class="py-2 text-brand-muted hover:text-white mobile-link"
+          >Location</a
+        >
+        <a
+          href="#contact"
+          class="py-2 text-brand-muted hover:text-white mobile-link"
+          >Contact</a
+        >
+        <a
+          href="#contact"
+          class="mt-2 w-full text-center py-3 bg-white text-black font-semibold mobile-link"
+          >Reserve Your Suite</a
+        >
+      </div>
+    </header>
+
+    <!-- =========================================================================
+       A. HOME / HERO SECTION (WITH 3D PARALLAX & DEPTH EFFECTS)
+       ========================================================================= -->
+    <section
+      id="home"
+      class="relative min-h-screen w-full flex items-center justify-center pt-24 pb-16 px-6 sm:px-8 lg:px-12 overflow-hidden bg-brand-black"
+    >
+      <!-- 3D Interactive Background & Image Plane -->
+      <div
+        id="hero-parallax-wrapper"
+        class="absolute inset-0 z-0 overflow-hidden transform-gpu will-change-transform scale-105 transition-transform duration-300 ease-out"
+        style="
+          transform: scale(1.05) translate3d(0px, 0px, 0px) rotateY(0deg)
+            rotateX(0deg);
+        "
+      >
+        <!-- Background Luxury Image (Deluxe Suite Panoramic) -->
+        <img
+          id="hero-img"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFTCguXovxVXibRYwp7R7HqAW0XVnMmn12RNZGBaOKkxGPHcHNbpuIop0dNGibBGWQQu14o2D83BjmOuj796U7UG_684lA83TvFwEjMbUxg43s7uwbpxZ1jkwyqGbsqqnv27XroVXqGPrgVuWu1ReJF8ylUcf1Q1_D0lwlx_18pPfm6Xp3RVMb4eft7khLnrzkk2V9EwPlj025kA6uyil_jDbfINxVtIA2vJ9LvVv7gP-pXHYNZxzVWg"
+          alt="Hotel Hider Signature Suite"
+          class="w-full h-full object-cover object-center filter brightness-[0.45] contrast-[1.1] scale-105 transition-transform duration-700"
+        />
+
+        <!-- Subtle Architectural Vignette & Editorial Gradients -->
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-brand-black/70"
+          style="
+            background: linear-gradient(
+              to top,
+              rgb(18, 19, 22) 0%,
+              transparent 60%,
+              rgba(18, 19, 22, 0.65) 100%
+            );
+          "
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-brand-black/80 via-transparent to-brand-black/80"
+          style="
+            background: linear-gradient(
+              to right,
+              rgba(18, 19, 22, 0.75) 0%,
+              transparent 50%,
+              rgba(18, 19, 22, 0.75) 100%
+            );
+          "
+        ></div>
+      </div>
+
+      <!-- Canvas for 3D Ambient Dust / Floating Dimensional Light particles -->
+      <canvas id="hero-canvas" width="1280" height="9493"></canvas>
+
+      <!-- Floating 3D Geometric Border Accents for Depth -->
+      <div
+        id="hero-floating-frame"
+        class="absolute inset-12 sm:inset-16 lg:inset-20 border border-white/[0.08] pointer-events-none transition-transform duration-500 ease-out z-10 hidden sm:block"
+        style="transform: translate3d(0px, 0px, 0px)"
+      ></div>
+
+      <!-- Hero Content Container -->
+      <div
+        class="relative z-20 max-w-5xl mx-auto text-center flex flex-col items-center justify-center animate-fadeInUp"
+      >
+        <!-- Sub-headline Pill / Editorial Tag -->
+        <div
+          class="inline-flex items-center gap-3 px-4 py-1.5 border border-white/20 bg-black/50 backdrop-blur-md mb-8"
+        >
+          <span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span>
+          <span
+            class="font-sans text-[10px] tracking-luxury uppercase text-white/90 font-medium"
+            >Boutique Luxury Sanctuary • Sector 8 Manesar</span
+          >
+        </div>
+
+        <!-- Grand Editorial Serif Headline -->
+        <h1
+          class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tight text-white font-normal leading-[1.04] mb-8 max-w-4xl"
+        >
+          AN EXPERIENCE <br class="hidden sm:inline" />
+          <span class="italic font-light">BEYOND</span> STAYING
+        </h1>
+
+        <!-- Sophisticated Hotel Description -->
+        <p
+          class="font-sans text-sm sm:text-base md:text-lg text-white/80 max-w-2xl font-light leading-relaxed tracking-wide mb-12"
+        >
+          Where architectural minimalism converges with discreet hospitality.
+          Step inside a refined world of acoustic quietude, bespoke
+          craftsmanship, and effortless comfort in the heart of IMT Manesar.
+        </p>
+
+        <!-- Dual Call To Action Buttons -->
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto"
+        >
+          <a
+            href="#rooms"
+            class="w-full sm:w-auto px-9 py-4 bg-white text-black text-xs font-sans font-semibold tracking-luxury uppercase hover:bg-transparent hover:text-white border border-white transition-all duration-300 shadow-2xl"
+          >
+            Explore Rooms
+          </a>
+          <a
+            href="#contact"
+            class="w-full sm:w-auto px-9 py-4 bg-transparent text-white text-xs font-sans font-semibold tracking-luxury uppercase hover:bg-white hover:text-black border border-white/40 hover:border-white transition-all duration-300"
+          >
+            Book Your Stay
+          </a>
+        </div>
+      </div>
+
+      <!-- Minimal Scroll Indicator at Bottom -->
+      <a
+        href="#about"
+        class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2.5 text-white/60 hover:text-white transition-colors group"
+      >
+        <span class="text-[9px] uppercase tracking-luxury font-sans"
+          >Scroll to Discover</span
+        >
+        <div
+          class="w-4 h-7 border border-white/30 rounded-full flex items-start justify-center p-1"
+        >
+          <span class="w-1 h-1.5 bg-white rounded-full animate-bounce"></span>
+        </div>
+      </a>
+    </section>
+
+    <!-- =========================================================================
+       B. ABOUT SECTION (EDITORIAL ASYMMETRIC LAYOUT & STATS)
+       ========================================================================= -->
+    <section
+      id="about"
+      class="relative py-28 lg:py-36 px-6 sm:px-8 lg:px-12 bg-brand-void border-t border-hairline"
+    >
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Tag -->
+        <div class="flex items-center gap-4 mb-16">
+          <span
+            class="text-[10px] uppercase tracking-luxury font-sans text-brand-muted"
+            >01 / ARCHITECTURE &amp; PHILOSOPHY</span
+          >
+          <div class="h-[1px] flex-1 bg-white/10"></div>
+        </div>
+
+        <!-- Asymmetric Two-Column Editorial Layout -->
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
+        >
+          <!-- Left Column: Hotel Exterior Landmark Photograph -->
+          <div class="lg:col-span-6 relative perspective-container">
+            <div
+              class="tilt-card relative overflow-hidden bg-brand-surface border border-hairline group"
+            >
+              <div class="aspect-[4/3] sm:aspect-[16/11] overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD80PcMoYyuu_QrVMfu8BZvrH6XU3iJe3GfqrdQvahUDFnRETuyF6ktTrfB0kPpiKva9j-6RB2B1_1cecfif6IxpLn_8iYgoxUIsXIdsH3Z3X4WXpa1u3gj88w0Z5rveoLXs9a1sbfdAPB3-zTQvi5YlWXW2lNtv2zYOQBZnpNsLig2Te1D2SiFsO9D6CP7pW1v7-ah30fxYJbY51ccoHcbpc9SOEIugnVd39vXoFsd8IYchFWJDG753A"
+                  alt="Hotel Hider Building View"
+                  class="w-full h-full object-cover filter contrast-[1.05] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                />
+              </div>
+              <!-- Editorial Caption Overlay -->
+              <div
+                class="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent flex items-center justify-between border-t border-white/5"
+              >
+                <div>
+                  <span
+                    class="text-[9px] uppercase tracking-luxury text-brand-muted block"
+                    >G.S. Tower • NH-48 Corridor</span
+                  >
+                  <span class="font-serif text-sm text-white italic"
+                    >Hotel Hider Facade Architecture</span
+                  >
+                </div>
+                <span class="text-xs font-mono text-white/50"
+                  >Plot 14, Sec 8</span
+                >
+              </div>
+            </div>
+            <!-- Layered 3D Shadow Backdrop Box -->
+            <div
+              class="absolute -bottom-4 -right-4 w-full h-full border border-white/10 -z-10 hidden sm:block"
+            ></div>
+          </div>
+
+          <!-- Right Column: Story & Philosophy -->
+          <div class="lg:col-span-6 flex flex-col justify-center space-y-8">
+            <span
+              class="text-xs uppercase tracking-luxury font-sans text-brand-muted"
+              >The Sanctuary Manifesto</span
+            >
+
+            <h2
+              class="font-serif text-3xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight leading-[1.12]"
+            >
+              A PLACE TO CALL <br />
+              <span class="italic font-light">YOUR OWN.</span>
+            </h2>
+
+            <p
+              class="font-sans text-sm sm:text-base text-white/70 leading-relaxed font-light"
+            >
+              Rooted in intentional simplicity, Hotel Hider offers an
+              uncompromising respite from the relentless pulse of the NCR
+              highway corridor. Crafted for discerning executives, long-stay
+              travelers, and design connoisseurs, every square foot is
+              orchestrated to restore quietude and focus.
+            </p>
+
+            <p
+              class="font-sans text-sm sm:text-base text-white/70 leading-relaxed font-light"
+            >
+              From acoustic-paneled walnut walls and cloud-plush orthopedic
+              sleep systems to our sunlit latticework dining solarium, we
+              redefine hospitality as an effortless, bespoke ritual rather than
+              an impersonal transaction.
+            </p>
+
+            <!-- Minimal Statistics Grid -->
+            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-hairline">
+              <div>
+                <span
+                  class="font-serif text-3xl sm:text-4xl text-white font-normal block leading-none"
+                  >05+</span
+                >
+                <span
+                  class="text-[10px] uppercase tracking-wideTag text-brand-muted block mt-2"
+                  >Years Of Grace</span
+                >
+              </div>
+              <div>
+                <span
+                  class="font-serif text-3xl sm:text-4xl text-white font-normal block leading-none"
+                  >40+</span
+                >
+                <span
+                  class="text-[10px] uppercase tracking-wideTag text-brand-muted block mt-2"
+                  >Curated Suites</span
+                >
+              </div>
+              <div>
+                <span
+                  class="font-serif text-3xl sm:text-4xl text-white font-normal block leading-none"
+                  >99%</span
+                >
+                <span
+                  class="text-[10px] uppercase tracking-wideTag text-brand-muted block mt-2"
+                  >Guest Satisfaction</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+       C. ROOMS & SUITES SECTION (ONE ROOM CARD PER ROW, ALTERNATING LAYOUT)
+       ========================================================================= -->
+    <section
+      id="rooms"
+      class="relative py-28 lg:py-36 px-6 sm:px-8 lg:px-12 bg-brand-black border-t border-hairline"
+    >
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20"
+        >
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <span
+                class="text-[10px] uppercase tracking-luxury font-sans text-brand-muted"
+                >02 / ACCOMMODATIONS</span
+              >
+              <div class="h-[1px] w-12 bg-white/10"></div>
+            </div>
+            <h2
+              class="font-serif text-3xl sm:text-5xl uppercase text-white tracking-tight leading-tight"
+            >
+              ROOMS &amp; <span class="italic font-light">SUITES</span>
+            </h2>
+          </div>
+          <p
+            class="font-sans text-sm text-brand-muted max-w-md font-light leading-relaxed"
+          >
+            Refined personal chambers featuring soundproofed walnut headboards,
+            crisp high-thread linens, walk-in marble rain showers, and dedicated
+            work lounges.
+          </p>
+        </div>
+
+        <!-- ===================================================================
+           ROOM CARD LIST (CRITICAL: 1 CARD PER ROW, ALTERNATING 40-45% IMAGE)
+           =================================================================== -->
+        <div class="space-y-16 lg:space-y-24">
+          <!-- -------------------------------------------------------------
+             ROOM 01: STANDARD SOLO SPRINT SUITE (Image Left, Info Right)
+             ------------------------------------------------------------- -->
+          <article
+            class="tilt-card bg-brand-surface border border-hairline overflow-hidden group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+              <!-- Room Image (45% on desktop) -->
+              <div
+                class="lg:col-span-5 relative min-h-[320px] sm:min-h-[400px] overflow-hidden bg-black"
+              >
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBte_FVQq1qrg2MHGtrTJeaaYwVKqyGE1DpJRb2jZH1pitbfHNYwP688WJit7IXgiEx_QUljNt-sfPm4yjwBzZsx_YeoiGuW7R4f3FiWyKNL0Ahxr4YSqAsPOP-SY6Lakjuw2tKkRSXHMkWb6gu3DMDu3OyV9mA87ke_naV-zUdlH7h23OYczSNUt4V0R5PKlHt0gkIkwulfDZeRaEEO7lypW4iwm2pmg3yt6NsnPek2wGrpeEcvUtKwg"
+                  alt="Hotel Hider Standard Room"
+                  class="w-full h-full object-cover object-center filter contrast-105 group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden"
+                ></div>
+                <span
+                  class="absolute top-6 left-6 px-3.5 py-1 bg-black/80 backdrop-blur-md border border-white/15 text-[10px] uppercase font-sans tracking-wideTag text-white"
+                >
+                  NO. 01 • SOLO SUITE
+                </span>
+              </div>
+
+              <!-- Room Information (55% on desktop) -->
+              <div
+                class="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-between space-y-8"
+              >
+                <div>
+                  <!-- Top Identifier & Pricing Header -->
+                  <div
+                    class="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-hairline"
+                  >
+                    <div>
+                      <span
+                        class="text-[10px] uppercase tracking-wideTag text-brand-muted block mb-1"
+                        >CHAMBER CATEGORY</span
+                      >
+                      <h3
+                        class="font-serif text-2xl sm:text-3xl lg:text-4xl text-white uppercase font-normal"
+                      >
+                        Standard Executive Pad
+                      </h3>
+                    </div>
+                    <div class="text-right">
+                      <span
+                        class="text-[10px] uppercase tracking-wideTag text-brand-muted block mb-1"
+                        >STARTING TARIFF</span
+                      >
+                      <div class="flex items-baseline gap-1.5">
+                        <span
+                          class="font-serif text-2xl sm:text-3xl text-white font-normal"
+                          >₹2,500</span
+                        >
+                        <span
+                          class="text-xs text-brand-muted font-sans font-light"
+                          >/ Night</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Footprint & Description -->
+                  <div class="py-6 space-y-4">
+                    <div
+                      class="inline-flex items-center gap-2 text-xs font-sans text-white/90"
+                    >
+                      <span
+                        class="material-symbols-outlined text-base text-brand-muted"
+                        >square_foot</span
+                      >
+                      <span class="font-medium tracking-wide"
+                        >220 Sq. Ft. Private Floor Area</span
+                      >
+                      <span class="text-white/30">•</span>
+                      <span class="text-brand-muted">Max 2 Guests</span>
+                    </div>
+                    <p
+                      class="font-sans text-sm text-white/70 leading-relaxed font-light"
+                    >
+                      An impeccably edited layout calibrated for solo business
+                      sprints and overnight road trips. Furnished with a custom
+                      orthopedic king bed, warm ambient task sconces, acoustic
+                      insulation, and an ultra-crisp monochrome bathroom
+                      ensuite.
+                    </p>
+                  </div>
+
+                  <!-- Rectangular Minimalist Amenity Tags -->
+                  <div class="flex flex-wrap gap-2.5 pt-2">
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >King Ortho Bed</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >480 Mbps Wi-Fi</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Rain Shower Ensuite</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >50" 4K Smart TV</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Dual Split Climate</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Reservation CTA Button Area -->
+                <div
+                  class="pt-6 border-t border-hairline flex flex-col sm:flex-row items-center gap-4"
+                >
+                  <a
+                    href="#contact"
+                    onclick="
+                      preselectRoom('Standard Executive Pad (₹2,500/night)')
+                    "
+                    class="w-full sm:flex-1 py-4 bg-white text-black text-xs font-sans font-semibold tracking-luxury uppercase text-center hover:bg-transparent hover:text-white border border-white transition-all duration-300"
+                  >
+                    Reserve Suite
+                  </a>
+                  <a
+                    href="#gallery"
+                    class="w-full sm:w-auto px-6 py-4 border border-white/20 text-white text-xs font-sans tracking-luxury uppercase text-center hover:border-white transition-all"
+                  >
+                    View Space
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- -------------------------------------------------------------
+             ROOM 02: DELUXE EXECUTIVE PAD (ALTERNATING: Info Left, Image Right)
+             ------------------------------------------------------------- -->
+          <article
+            class="tilt-card bg-brand-surface border border-hairline overflow-hidden group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+              <!-- Room Information (55% on desktop, Placed FIRST on desktop) -->
+              <div
+                class="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-between space-y-8 order-2 lg:order-1"
+              >
+                <div>
+                  <!-- Top Identifier & Pricing Header -->
+                  <div
+                    class="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-hairline"
+                  >
+                    <div>
+                      <span
+                        class="text-[10px] uppercase tracking-wideTag text-brand-muted block mb-1"
+                        >CHAMBER CATEGORY</span
+                      >
+                      <h3
+                        class="font-serif text-2xl sm:text-3xl lg:text-4xl text-white uppercase font-normal"
+                      >
+                        Deluxe Executive Chamber
+                      </h3>
+                    </div>
+                    <div class="text-right">
+                      <span
+                        class="text-[10px] uppercase tracking-wideTag text-brand-muted block mb-1"
+                        >STARTING TARIFF</span
+                      >
+                      <div class="flex items-baseline gap-1.5">
+                        <span
+                          class="font-serif text-2xl sm:text-3xl text-white font-normal"
+                          >₹3,500</span
+                        >
+                        <span
+                          class="text-xs text-brand-muted font-sans font-light"
+                          >/ Night</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Footprint & Description -->
+                  <div class="py-6 space-y-4">
+                    <div
+                      class="inline-flex items-center gap-2 text-xs font-sans text-white/90"
+                    >
+                      <span
+                        class="material-symbols-outlined text-base text-brand-muted"
+                        >square_foot</span
+                      >
+                      <span class="font-medium tracking-wide"
+                        >280 Sq. Ft. Expanded Living Area</span
+                      >
+                      <span class="text-white/30">•</span>
+                      <span class="text-brand-muted"
+                        >Balcony Access Available</span
+                      >
+                    </div>
+                    <p
+                      class="font-sans text-sm text-white/70 leading-relaxed font-light"
+                    >
+                      Our most requested chamber, defined by fluted walnut
+                      acoustic panelling, two deep-cushioned armchairs, a teak
+                      coffee table, and an executive writing surface. Complete
+                      with double-glazed noise cancellation to ensure total
+                      acoustic privacy.
+                    </p>
+                  </div>
+
+                  <!-- Rectangular Minimalist Amenity Tags -->
+                  <div class="flex flex-wrap gap-2.5 pt-2">
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Fluted Walnut Headboard</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Twin Armchairs &amp; Table</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Italian Marble Ensuite</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Acoustic Glazing</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >24/7 Room Dining</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Reservation CTA Button Area -->
+                <div
+                  class="pt-6 border-t border-hairline flex flex-col sm:flex-row items-center gap-4"
+                >
+                  <a
+                    href="#contact"
+                    onclick="
+                      preselectRoom('Deluxe Executive Chamber (₹3,500/night)')
+                    "
+                    class="w-full sm:flex-1 py-4 bg-white text-black text-xs font-sans font-semibold tracking-luxury uppercase text-center hover:bg-transparent hover:text-white border border-white transition-all duration-300"
+                  >
+                    Reserve Suite
+                  </a>
+                  <a
+                    href="#gallery"
+                    class="w-full sm:w-auto px-6 py-4 border border-white/20 text-white text-xs font-sans tracking-luxury uppercase text-center hover:border-white transition-all"
+                  >
+                    View Space
+                  </a>
+                </div>
+              </div>
+
+              <!-- Room Image (45% on desktop, Placed SECOND on desktop) -->
+              <div
+                class="lg:col-span-5 relative min-h-[320px] sm:min-h-[400px] overflow-hidden bg-black order-1 lg:order-2"
+              >
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoX4LyLeiEycZfFRncPZtxrLP-eG9564U3dJLSQiWZcgSSGo7pmHb_HXhYMjApn5Y-l4YiItMVMw-gcsxxNOvhv9TYroXwiCgdfEThhz858NwPHHF6NFJ5w52CSs1EuL-3vuwrt6DaMhzjMjVQfAQpTkoGhhSAzpp2Tl9Gv3RsQ76UtLi4uLVF0uCZUIbLeb5H4VJbXgRSvZtL-614cLUuRG57fIO9_79FfcKC0l005LA7BAg9vy52YQ"
+                  alt="Hotel Hider Deluxe Chamber"
+                  class="w-full h-full object-cover object-center filter contrast-105 group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden"
+                ></div>
+                <span
+                  class="absolute top-6 right-6 px-3.5 py-1 bg-black/80 backdrop-blur-md border border-white/15 text-[10px] uppercase font-sans tracking-wideTag text-white"
+                >
+                  NO. 02 • EXECUTIVE TIER
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- -------------------------------------------------------------
+             ROOM 03: SUPER DELUXE RESIDENCE SUITE (Image Left, Info Right)
+             ------------------------------------------------------------- -->
+          <article
+            class="tilt-card bg-brand-surface border border-hairline overflow-hidden group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+              <!-- Room Image (45% on desktop) -->
+              <div
+                class="lg:col-span-5 relative min-h-[320px] sm:min-h-[400px] overflow-hidden bg-black"
+              >
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKDsCud8NxirCu_hqc0RikEFxe8gTv9PoEZeun1iicVg5xwpqMyA_lehLxWGtlFjvf-usw_3nb-MPdmau1VDyx2mnMCu75FvuDXSDSgXXxq4UBXHYVr0fRuh-qk6pj3FTpGd5S0tbCpfCWHbfaVxp_oBgmsISiguvDjNdW6R-h42Vd3HRj8jeYqyABYxMOHciFnYfpoX76k9wEfrs-Rxhksc8wAgU7p7Q2rZR3OgF9GNX6CvYol5-FGQ"
+                  alt="Hotel Hider Super Deluxe Suite"
+                  class="w-full h-full object-cover object-center filter contrast-105 group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden"
+                ></div>
+                <span
+                  class="absolute top-6 left-6 px-3.5 py-1 bg-black/80 backdrop-blur-md border border-white/15 text-[10px] uppercase font-sans tracking-wideTag text-white"
+                >
+                  NO. 03 • MASTER RESIDENCE
+                </span>
+              </div>
+
+              <!-- Room Information (55% on desktop) -->
+              <div
+                class="lg:col-span-7 p-8 sm:p-12 lg:p-14 flex flex-col justify-between space-y-8"
+              >
+                <div>
+                  <!-- Top Identifier & Pricing Header -->
+                  <div
+                    class="flex flex-wrap items-baseline justify-between gap-4 pb-6 border-b border-hairline"
+                  >
+                    <div>
+                      <span
+                        class="text-[10px] uppercase tracking-wideTag text-brand-muted block mb-1"
+                        >CHAMBER CATEGORY</span
+                      >
+                      <h3
+                        class="font-serif text-2xl sm:text-3xl lg:text-4xl text-white uppercase font-normal"
+                      >
+                        Super Deluxe Grand Residence
+                      </h3>
+                    </div>
+                    <div class="text-right">
+                      <span
+                        class="text-[10px] uppercase tracking-wideTag text-brand-muted block mb-1"
+                        >STARTING TARIFF</span
+                      >
+                      <div class="flex items-baseline gap-1.5">
+                        <span
+                          class="font-serif text-2xl sm:text-3xl text-white font-normal"
+                          >₹4,500</span
+                        >
+                        <span
+                          class="text-xs text-brand-muted font-sans font-light"
+                          >/ Night</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Footprint & Description -->
+                  <div class="py-6 space-y-4">
+                    <div
+                      class="inline-flex items-center gap-2 text-xs font-sans text-white/90"
+                    >
+                      <span
+                        class="material-symbols-outlined text-base text-brand-muted"
+                        >square_foot</span
+                      >
+                      <span class="font-medium tracking-wide"
+                        >340 Sq. Ft. Master Suite</span
+                      >
+                      <span class="text-white/30">•</span>
+                      <span class="text-brand-muted"
+                        >Priority Diner Service Included</span
+                      >
+                    </div>
+                    <p
+                      class="font-sans text-sm text-white/70 leading-relaxed font-light"
+                    >
+                      The pinnacle of our spatial philosophy. An expansive
+                      residence boasting an oversized custom king mattress,
+                      silent in-room minibar refrigerator, full dressing vanity
+                      mirror, and dark marble walk-in wet room with dual
+                      showerheads.
+                    </p>
+                  </div>
+
+                  <!-- Rectangular Minimalist Amenity Tags -->
+                  <div class="flex flex-wrap gap-2.5 pt-2">
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >340 Sq. Ft. Full Suite</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >In-Room Silent Mini Fridge</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Dressing Wardrobe &amp; Vanity</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >VIP 24/7 Dining Express</span
+                    >
+                    <span
+                      class="px-3 py-1.5 border border-white/10 bg-brand-card text-[11px] font-sans text-white/80 uppercase tracking-wider"
+                      >Deep Soaking Rain Shower</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Reservation CTA Button Area -->
+                <div
+                  class="pt-6 border-t border-hairline flex flex-col sm:flex-row items-center gap-4"
+                >
+                  <a
+                    href="#contact"
+                    onclick="
+                      preselectRoom(
+                        'Super Deluxe Grand Residence (₹4,500/night)',
+                      )
+                    "
+                    class="w-full sm:flex-1 py-4 bg-white text-black text-xs font-sans font-semibold tracking-luxury uppercase text-center hover:bg-transparent hover:text-white border border-white transition-all duration-300"
+                  >
+                    Reserve Suite
+                  </a>
+                  <a
+                    href="#gallery"
+                    class="w-full sm:w-auto px-6 py-4 border border-white/20 text-white text-xs font-sans tracking-luxury uppercase text-center hover:border-white transition-all"
+                  >
+                    View Space
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+       D. AMENITIES SECTION (MONOCHROME ICONS & LAYERED CARD EFFECTS)
+       ========================================================================= -->
+    <section
+      id="amenities"
+      class="relative py-28 lg:py-36 px-6 sm:px-8 lg:px-12 bg-brand-void border-t border-hairline"
+    >
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20"
+        >
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <span
+                class="text-[10px] uppercase tracking-luxury font-sans text-brand-muted"
+                >03 / CONVENIENCES</span
+              >
+              <div class="h-[1px] w-12 bg-white/10"></div>
+            </div>
+            <h2
+              class="font-serif text-3xl sm:text-5xl uppercase text-white tracking-tight leading-tight"
+            >
+              CURATED <span class="italic font-light">AMENITIES</span>
+            </h2>
+          </div>
+          <p
+            class="font-sans text-sm text-brand-muted max-w-md font-light leading-relaxed"
+          >
+            Crafted to eliminate modern friction. Experience flawless
+            infrastructure designed around uninterrupted productivity, physical
+            wellness, and seamless rest.
+          </p>
+        </div>
+
+        <!-- Amenities Grid (Minimal monochrome icons, subtle 3D hover interactions) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Amenity 1: Fine Dining Restaurant -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >restaurant</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                Fine Dining &amp; Cafe
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                Panoramic sunset solarium with emerald velvet booths and an
+                artisanal chalkboard espresso bar.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >Open 24/7 Continuous</span
+            >
+          </div>
+
+          <!-- Amenity 2: Gigabit Fiber Mesh -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >wifi</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                Enterprise Wi-Fi
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                480 Mbps verified symmetrical mesh coverage across every
+                chamber, lounge, and dining nook.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >Low-Latency Mesh</span
+            >
+          </div>
+
+          <!-- Amenity 3: 24/7 Room Service -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >room_service</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                24/7 In-Suite Dining
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                Hot artisanal comfort cuisine, freshly brewed coffee, and
+                midnight supper delivered directly to bed.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >Direct WhatsApp Order</span
+            >
+          </div>
+
+          <!-- Amenity 4: 100% Dual Power Backup -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >bolt</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                Dual Power Backup
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                Industrial silent generator bank guarantees climate control,
+                lifts, and workstations never flicker.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >100% Uninterrupted</span
+            >
+          </div>
+
+          <!-- Amenity 5: Gated Valet & Security -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >local_parking</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                Secure Parking
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                Gated on-premise parking bays with 24-hour physical sentry
+                surveillance and driver lounge shelters.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >Complimentary Valet</span
+            >
+          </div>
+
+          <!-- Amenity 6: Conference & Meeting Nooks -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >meeting_room</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                Meeting Lounges
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                Acoustically isolated conference alcoves equipped with
+                high-speed ports for executive sprint syncs.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >Private Booking</span
+            >
+          </div>
+
+          <!-- Amenity 7: Wellness & Sanitized Housekeeping -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >spa</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                Sanitized Care
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                Daily hospital-grade disinfection, botanical apothecary
+                toiletries, and pressed Egyptian cotton sheets.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >Pristine Protocol</span
+            >
+          </div>
+
+          <!-- Amenity 8: Flexible Late Checkouts -->
+          <div
+            class="tilt-card p-8 bg-brand-surface border border-hairline flex flex-col justify-between group h-full"
+          >
+            <div>
+              <div
+                class="w-12 h-12 flex items-center justify-center border border-white/10 bg-black text-white mb-6 group-hover:border-white transition-colors"
+              >
+                <span class="material-symbols-outlined text-2xl font-light"
+                  >hourglass_empty</span
+                >
+              </div>
+              <h3
+                class="font-serif text-xl uppercase text-white font-normal mb-2"
+              >
+                Late Checkout
+              </h3>
+              <p
+                class="font-sans text-xs text-brand-muted leading-relaxed font-light"
+              >
+                Need unhurried rest after a grueling night flight? Effortless
+                checkout extensions arranged upon request.
+              </p>
+            </div>
+            <span
+              class="text-[9px] uppercase tracking-wideTag text-white/40 pt-6 mt-6 border-t border-white/5 block"
+              >On Front Desk Request</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+       E. GALLERY SECTION (ASYMMETRICAL MASONRY STYLE WITH REAL PHOTOGRAPHY)
+       ========================================================================= -->
+    <section
+      id="gallery"
+      class="relative py-28 lg:py-36 px-6 sm:px-8 lg:px-12 bg-brand-black border-t border-hairline"
+    >
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
+        >
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <span
+                class="text-[10px] uppercase tracking-luxury font-sans text-brand-muted"
+                >04 / VISUAL ARCHIVE</span
+              >
+              <div class="h-[1px] w-12 bg-white/10"></div>
+            </div>
+            <h2
+              class="font-serif text-3xl sm:text-5xl uppercase text-white tracking-tight leading-tight"
+            >
+              THE SPATIAL <span class="italic font-light">GALLERY</span>
+            </h2>
+          </div>
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 text-xs uppercase tracking-luxury text-white hover:text-brand-muted transition-colors pb-1 border-b border-white"
+          >
+            <span class="">Explore All Chambers</span>
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+
+        <!-- Asymmetrical Masonry-Style Photo Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <!-- Image 1: Solarium Sunset Restaurant (Span 7 cols) -->
+          <div
+            class="md:col-span-7 relative group overflow-hidden bg-brand-surface border border-hairline"
+          >
+            <div class="aspect-[16/10] overflow-hidden">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRqvewxrhJidu5U7ZXurdJQdsraCxYvXWb-EFG_PVtYhwlWBZYR8L52zmNm9cIDBr07E9VA_aR1vmVhrLmlPRbe4kxfmlL84Xv2C_RebkAjcJWUvgMiaTMtREtJrMwCuBoD9WJlRVMKi23JOOPMXXdbZVvsEusT4e1CvTi2jLiFNRR0ksiwexyEXM1uP68ZM0ug7qzTeSSNeJR90tbF8peMGN5vfBjmqHjSgsPIZaAvRG3P7ni_JvfEg"
+                alt="Hotel Hider Panoramic Solarium"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end"
+            >
+              <span
+                class="text-[9px] uppercase tracking-wideTag text-brand-muted"
+                >Rooftop Terrace</span
+              >
+              <span class="font-serif text-base text-white"
+                >Sunset Solarium &amp; Dining Pavilion</span
+              >
+            </div>
+          </div>
+
+          <!-- Image 2: Deluxe Bathroom Marble Ensuite (Span 5 cols) -->
+          <div
+            class="md:col-span-5 relative group overflow-hidden bg-brand-surface border border-hairline"
+          >
+            <div class="aspect-[16/10] md:aspect-[4/3] overflow-hidden">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuByxq_ANJ7nnNwJMEvnR-L3sx_ltFU1PVQxBs9y95_ITYGxVF8jHFGIqDJ3zsfJz3t-Cq07Q8i_VM0DvdxDk2pTfC5SkVnR6UxTxJ4V-kCZdQguUzYjTvrJPMWbPR5sKFQpdxiiXcKjDXh4NOryxICdhOwzh_l_8eXD_8ngpZLbmnbt6MX4svK8VKosZtR0ODepc9p-7vn41-bkbLQLln0Qc5o_c7UwtBL89RMJ7v15MBnkMobs9mRgxQ"
+                alt="Hotel Hider Marble Ensuite Bathroom"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end"
+            >
+              <span
+                class="text-[9px] uppercase tracking-wideTag text-brand-muted"
+                >Private Sanctum</span
+              >
+              <span class="font-serif text-base text-white"
+                >Italian Granite Shower Wetroom</span
+              >
+            </div>
+          </div>
+
+          <!-- Image 3: Social Diner Chalkboard Cafe (Span 4 cols) -->
+          <div
+            class="md:col-span-4 relative group overflow-hidden bg-brand-surface border border-hairline"
+          >
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWI8GxDwISbUxqanAFwDWXPvE9Y2HVoOg9uv_E3J_PL2zB7dcusw1lTtTYO-HToZ5jCgUGV_r-2Qti-A9-S79qHoaHSakkyrvi9UXWK7anTXSbke14fVNUZsRyFzi64fMuBqENh_LYAIuDSEM1SSERwHiOGPlnCMPPEtuTqPhhlkxLJEMhtS1k6s42qweVXP7TE-w7gxV3azMYONs5OhlOye1aFwIWCWfNAnbFOhk1-X1JskiIrCgSbQ"
+                alt="Hotel Hider Social Diner &amp; Cafe"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end"
+            >
+              <span
+                class="text-[9px] uppercase tracking-wideTag text-brand-muted"
+                >Culinary Nook</span
+              >
+              <span class="font-serif text-base text-white"
+                >Artisanal 24/7 Graffiti Bistro</span
+              >
+            </div>
+          </div>
+
+          <!-- Image 4: Grand Hallway Architectural Corridor (Span 4 cols) -->
+          <div
+            class="md:col-span-4 relative group overflow-hidden bg-brand-surface border border-hairline"
+          >
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZYr3yTFP57ce0WxbeSmgrr4DoyQ7um5FZtMa0XnHsZoctTV7xDzsyvcCuK_EdrnvQGfsSpUS9YOSFOB8Qt84F9nk1y0bNTVKkGECR6ARoIp0DECsmf3YoNrZ4-2rLS-27Csr02-p5TcFKoq7qWBj3lLe9Ov-mv7JcsNAfdedXufeKeeZ4fmixzmJF6I6S5Dbiwq41sgQX3VYLpLk7kxYC1UcKRlmIqFGVIje8OTB_Bal8o_IYpUuZHw"
+                alt="Hotel Hider Grand Corridor"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end"
+            >
+              <span
+                class="text-[9px] uppercase tracking-wideTag text-brand-muted"
+                >Interior Passage</span
+              >
+              <span class="font-serif text-base text-white"
+                >Wainscoted Architectural Gallery</span
+              >
+            </div>
+          </div>
+
+          <!-- Image 5: Sunset Balcony Lounge (Span 4 cols) -->
+          <div
+            class="md:col-span-4 relative group overflow-hidden bg-brand-surface border border-hairline"
+          >
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZuQfS_Too57dRmxhtOTaD_uZe9qAwVsRhJSyWPuUVSNKB3x4LYuVl4-eRbOEmeieN32rZy8cnWmHa9Idt2qexNS4zr6_nkjmfTE03fdeZNUV2-PkF2RhufQfUeVbKLDpbup8pIQw5fMl7sWm9TiUz_D8eXdFc9u9k9zR665AHe63wQUThZKEN_ssHZen5Skhz61jnfGa20HeFvh3iGHIAkwprav6JtH_OHJT33zN2qJL_sB-QGIAQ3w"
+                alt="Hotel Hider Balcony Lounge"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end"
+            >
+              <span
+                class="text-[9px] uppercase tracking-wideTag text-brand-muted"
+                >Open Air</span
+              >
+              <span class="font-serif text-base text-white"
+                >Geometric Screen Sunset Lounge</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+       F. LOCATION SECTION (SPLIT LAYOUT WITH DIRECTIONS & TRANSIT)
+       ========================================================================= -->
+    <section
+      id="location"
+      class="relative py-28 lg:py-36 px-6 sm:px-8 lg:px-12 bg-brand-void border-t border-hairline"
+    >
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="flex items-center gap-4 mb-16">
+          <span
+            class="text-[10px] uppercase tracking-luxury font-sans text-brand-muted"
+            >CONNECTIVITY</span
+          >
+          <div class="h-[1px] flex-1 bg-white/10"></div>
+        </div>
+
+        <div class="mb-12">
+          <h2
+            class="font-serif text-3xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight leading-tight"
+          >
+            Location &amp; <span class="italic font-light">Directions</span>
+          </h2>
+        </div>
+
+        <!-- Two Column Layout: Map Card Left, Strategic Proximity & Transit Right -->
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch"
+        >
+          <!-- Left Column: Map Card & Physical Address -->
+          <div
+            class="lg:col-span-6 flex flex-col justify-between bg-brand-surface border border-hairline overflow-hidden"
+          >
+            <!-- Styled Map View Container -->
+            <div
+              class="relative min-h-[300px] sm:min-h-[360px] overflow-hidden bg-black flex-1"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD80PcMoYyuu_QrVMfu8BZvrH6XU3iJe3GfqrdQvahUDFnRETuyF6ktTrfB0kPpiKva9j-6RB2B1_1cecfif6IxpLn_8iYgoxUIsXIdsH3Z3X4WXpa1u3gj88w0Z5rveoLXs9a1sbfdAPB3-zTQvi5YlWXW2lNtv2zYOQBZnpNsLig2Te1D2SiFsO9D6CP7pW1v7-ah30fxYJbY51ccoHcbpc9SOEIugnVd39vXoFsd8IYchFWJDG753A"
+                alt="Hotel Hider Manesar Map Coordinates"
+                class="w-full h-full object-cover filter brightness-[0.4] contrast-[1.1] grayscale hover:grayscale-0 transition-all duration-700"
+              />
+
+              <!-- Stylized Map Grid Overlay -->
+              <div
+                class="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none"
+              ></div>
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-brand-surface via-transparent to-black/60"
+              ></div>
+
+              <!-- Top Route Badge -->
+              <div
+                class="absolute top-6 left-6 px-3.5 py-1.5 bg-black/80 backdrop-blur-md border border-white/10 flex items-center gap-2"
+              >
+                <span
+                  class="w-2 h-2 rounded-full bg-white animate-pulse"
+                ></span>
+                <span
+                  class="text-[10px] uppercase font-sans tracking-wideTag text-white"
+                  >NH-48 Delhi-Jaipur Highway Corridor</span
+                >
+              </div>
+
+              <!-- Center Map Pin Marker -->
+              <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none"
+              >
+                <div class="relative flex items-center justify-center">
+                  <span
+                    class="w-12 h-12 rounded-full bg-white/20 animate-ping absolute"
+                  ></span>
+                  <div
+                    class="w-10 h-10 bg-white text-black flex items-center justify-center font-bold shadow-2xl relative z-10"
+                  >
+                    <span class="material-symbols-outlined text-lg"
+                      >apartment</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="mt-3 px-4 py-1.5 bg-black/90 backdrop-blur-md border border-white/20 text-center"
+                >
+                  <span
+                    class="font-serif text-xs text-white uppercase tracking-wider block"
+                    >Hotel Hider Sanctuary</span
+                  >
+                  <span class="text-[9px] font-mono text-brand-muted uppercase"
+                    >Sector 8, IMT Manesar Hub</span
+                  >
+                </div>
+              </div>
+
+              <!-- Directions Floating Button -->
+              <div class="absolute bottom-6 right-6">
+                <a
+                  href="https://maps.google.com/?q=Sector+8+IMT+Manesar+Gurugram"
+                  target="_blank"
+                  class="inline-flex items-center gap-2 px-5 py-3 bg-white text-black text-xs font-sans font-semibold tracking-luxury uppercase border border-white hover:bg-black hover:text-white transition-all shadow-2xl"
+                >
+                  <span class="material-symbols-outlined text-sm">explore</span>
+                  <span class="">Get Directions</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Physical Address Info Block -->
+            <div class="p-6 sm:p-8 border-t border-hairline bg-brand-surface">
+              <div class="flex items-center justify-between gap-4 mb-2">
+                <span
+                  class="text-[10px] uppercase tracking-luxury font-sans text-brand-muted"
+                  >PHYSICAL ADDRESS</span
+                >
+                <span
+                  class="inline-flex items-center gap-1.5 px-2.5 py-0.5 border border-white/15 text-[10px] font-sans text-white/90 uppercase tracking-wideTag"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"
+                  ></span>
+                  Easy Toll Access
+                </span>
+              </div>
+              <h3
+                class="font-serif text-xl sm:text-2xl text-white font-normal uppercase mb-1"
+              >
+                Sector 8, IMT Manesar, Gurugram
+              </h3>
+              <p
+                class="font-sans text-xs sm:text-sm text-brand-muted font-light leading-relaxed"
+              >
+                Haryana 122051, India (Off NH-48 Delhi-Jaipur Highway, Opposite
+                G.S. Tower)
+              </p>
+            </div>
+          </div>
+
+          <!-- Right Column: Strategic Proximity & Transit Guidance Cards -->
+          <div class="lg:col-span-6 flex flex-col gap-6 justify-between">
+            <!-- Card 1: Strategic Proximity Table -->
+            <div
+              class="bg-brand-surface border border-hairline p-6 sm:p-8 flex-1 flex flex-col justify-between"
+            >
+              <div>
+                <div
+                  class="flex items-center justify-between pb-4 mb-4 border-b border-hairline"
+                >
+                  <span
+                    class="text-xs uppercase tracking-luxury font-sans text-white font-medium"
+                    >Strategic Proximity</span
+                  >
+                  <span class="text-[10px] font-mono uppercase text-brand-muted"
+                    >Drive Time</span
+                  >
+                </div>
+
+                <div class="space-y-3.5">
+                  <div
+                    class="p-4 bg-brand-card border border-white/5 flex items-center justify-between group hover:border-white/20 transition-colors"
+                  >
+                    <div class="flex items-center gap-3.5">
+                      <span
+                        class="material-symbols-outlined text-lg text-brand-muted group-hover:text-white transition-colors"
+                        >factory</span
+                      >
+                      <div>
+                        <span
+                          class="text-xs font-sans text-white font-medium block"
+                          >IMT Manesar Tech &amp; Auto Hub</span
+                        >
+                        <span
+                          class="text-[10px] text-brand-muted font-sans font-light"
+                          >Industrial Core &amp; Corporate Offices</span
+                        >
+                      </div>
+                    </div>
+                    <span class="font-mono text-xs text-white font-medium"
+                      >5 – 10 Mins</span
+                    >
+                  </div>
+
+                  <div
+                    class="p-4 bg-brand-card border border-white/5 flex items-center justify-between group hover:border-white/20 transition-colors"
+                  >
+                    <div class="flex items-center gap-3.5">
+                      <span
+                        class="material-symbols-outlined text-lg text-brand-muted group-hover:text-white transition-colors"
+                        >subway</span
+                      >
+                      <div>
+                        <span
+                          class="text-xs font-sans text-white font-medium block"
+                          >HUDA City Centre Metro</span
+                        >
+                        <span
+                          class="text-[10px] text-brand-muted font-sans font-light"
+                          >DMRC Yellow Line Direct Transit</span
+                        >
+                      </div>
+                    </div>
+                    <span class="font-mono text-xs text-white font-medium"
+                      >25 Mins</span
+                    >
+                  </div>
+
+                  <div
+                    class="p-4 bg-brand-card border border-white/5 flex items-center justify-between group hover:border-white/20 transition-colors"
+                  >
+                    <div class="flex items-center gap-3.5">
+                      <span
+                        class="material-symbols-outlined text-lg text-brand-muted group-hover:text-white transition-colors"
+                        >flight_takeoff</span
+                      >
+                      <div>
+                        <span
+                          class="text-xs font-sans text-white font-medium block"
+                          >IGI Airport Delhi (DEL)</span
+                        >
+                        <span
+                          class="text-[10px] text-brand-muted font-sans font-light"
+                          >Terminal 3 &amp; Aerocity Hub</span
+                        >
+                      </div>
+                    </div>
+                    <span class="font-mono text-xs text-white font-medium"
+                      >35 – 40 Mins</span
+                    >
+                  </div>
+
+                  <div
+                    class="p-4 bg-brand-card border border-white/5 flex items-center justify-between group hover:border-white/20 transition-colors"
+                  >
+                    <div class="flex items-center gap-3.5">
+                      <span
+                        class="material-symbols-outlined text-lg text-brand-muted group-hover:text-white transition-colors"
+                        >apartment</span
+                      >
+                      <div>
+                        <span
+                          class="text-xs font-sans text-white font-medium block"
+                          >Cyber City Gurugram</span
+                        >
+                        <span
+                          class="text-[10px] text-brand-muted font-sans font-light"
+                          >DLF CyberHub &amp; Golf Course Ext</span
+                        >
+                      </div>
+                    </div>
+                    <span class="font-mono text-xs text-white font-medium"
+                      >30 Mins</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: Transit Guidance -->
+            <div class="bg-brand-surface border border-hairline p-6 sm:p-8">
+              <div
+                class="flex items-center justify-between pb-4 mb-5 border-b border-hairline"
+              >
+                <span
+                  class="text-xs uppercase tracking-luxury font-sans text-white font-medium"
+                  >Transit Guidance</span
+                >
+                <span
+                  class="text-[10px] uppercase tracking-wideTag text-brand-muted font-sans"
+                  >Connectivity Modes</span
+                >
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                <div
+                  class="p-4 bg-brand-card border border-white/5 flex flex-col justify-between group hover:border-white/20 transition-colors"
+                >
+                  <div
+                    class="w-8 h-8 rounded-none border border-white/10 flex items-center justify-center text-white mb-3 bg-black"
+                  >
+                    <span class="material-symbols-outlined text-base"
+                      >directions_car</span
+                    >
+                  </div>
+                  <div>
+                    <span
+                      class="text-[11px] font-sans font-medium text-white block uppercase tracking-wider mb-0.5"
+                      >By Car</span
+                    >
+                    <span
+                      class="text-[11px] font-sans text-brand-muted font-light leading-snug block"
+                      >Direct via NH-48 Expressway</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="p-4 bg-brand-card border border-white/5 flex flex-col justify-between group hover:border-white/20 transition-colors"
+                >
+                  <div
+                    class="w-8 h-8 rounded-none border border-white/10 flex items-center justify-center text-white mb-3 bg-black"
+                  >
+                    <span class="material-symbols-outlined text-base"
+                      >local_taxi</span
+                    >
+                  </div>
+                  <div>
+                    <span
+                      class="text-[11px] font-sans font-medium text-white block uppercase tracking-wider mb-0.5"
+                      >Airport Cab</span
+                    >
+                    <span
+                      class="text-[11px] font-sans text-brand-muted font-light leading-snug block"
+                      >Prepaid or Uber / Ola</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="p-4 bg-brand-card border border-white/5 flex flex-col justify-between group hover:border-white/20 transition-colors"
+                >
+                  <div
+                    class="w-8 h-8 rounded-none border border-white/10 flex items-center justify-center text-white mb-3 bg-black"
+                  >
+                    <span class="material-symbols-outlined text-base"
+                      >train</span
+                    >
+                  </div>
+                  <div>
+                    <span
+                      class="text-[11px] font-sans font-medium text-white block uppercase tracking-wider mb-0.5"
+                      >Metro + Auto</span
+                    >
+                    <span
+                      class="text-[11px] font-sans text-brand-muted font-light leading-snug block"
+                      >Yellow Line to Millenium City</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+       G. CONTACT & BOOKING SECTION (CLEAN MONOCHROME INQUIRY FORM)
+       ========================================================================= -->
+    <section
+      id="contact"
+      class="relative py-28 lg:py-36 px-6 sm:px-8 lg:px-12 bg-brand-black border-t border-hairline"
+    >
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="flex items-center gap-4 mb-16">
+          <span
+            class="text-[10px] uppercase tracking-luxury font-sans text-brand-muted"
+            >06 / RESERVATIONS &amp; CONCIERGE</span
+          >
+          <div class="h-[1px] flex-1 bg-white/10"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          <!-- Left: Hotel Contact Details & Concierge Policy -->
+          <div class="lg:col-span-5 space-y-8">
+            <div>
+              <span
+                class="text-xs uppercase tracking-luxury font-sans text-brand-muted block mb-3"
+                >Direct Front Desk Desk</span
+              >
+              <h2
+                class="font-serif text-3xl sm:text-4xl md:text-5xl uppercase text-white tracking-tight leading-tight"
+              >
+                BEGIN YOUR <br /><span class="italic font-light"
+                  >RESIDENCE</span
+                >
+              </h2>
+            </div>
+
+            <p
+              class="font-sans text-sm text-white/70 font-light leading-relaxed"
+            >
+              Direct bookings guarantee our preferential room rates,
+              complimentary flexible checkout extensions, and instantaneous room
+              assignments.
+            </p>
+
+            <!-- Contact Channels List -->
+            <div class="space-y-6 pt-4 border-t border-hairline">
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 border border-white/15 flex items-center justify-center text-white shrink-0"
+                >
+                  <span class="material-symbols-outlined text-base">call</span>
+                </div>
+                <div>
+                  <span
+                    class="text-[9px] uppercase tracking-wideTag text-brand-muted block"
+                    >Direct Telephone</span
+                  >
+                  <a
+                    href="tel:+919876543210"
+                    class="font-serif text-lg text-white hover:text-brand-muted transition-colors"
+                    >+91 98765 43210</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 border border-white/15 flex items-center justify-center text-white shrink-0"
+                >
+                  <span class="material-symbols-outlined text-base">mail</span>
+                </div>
+                <div>
+                  <span
+                    class="text-[9px] uppercase tracking-wideTag text-brand-muted block"
+                    >Direct Email</span
+                  >
+                  <a
+                    href="mailto:concierge@hotelhider.com"
+                    class="font-serif text-lg text-white hover:text-brand-muted transition-colors"
+                    >concierge@hotelhider.com</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 border border-white/15 flex items-center justify-center text-white shrink-0"
+                >
+                  <span class="material-symbols-outlined text-base">chat</span>
+                </div>
+                <div>
+                  <span
+                    class="text-[9px] uppercase tracking-wideTag text-brand-muted block"
+                    >WhatsApp Front Desk</span
+                  >
+                  <a
+                    href="https://wa.me/919876543210"
+                    target="_blank"
+                    class="font-serif text-lg text-white hover:text-brand-muted transition-colors"
+                    >Online • Responds in &lt; 2 mins</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Check-in and Check-out Standard Badges -->
+            <div class="grid grid-cols-2 gap-4 pt-4">
+              <div class="p-4 bg-brand-surface border border-hairline">
+                <span
+                  class="text-[9px] uppercase tracking-wideTag text-brand-muted block"
+                  >Check-in</span
+                >
+                <span class="font-serif text-xl text-white font-normal"
+                  >12:00 PM</span
+                >
+              </div>
+              <div class="p-4 bg-brand-surface border border-hairline">
+                <span
+                  class="text-[9px] uppercase tracking-wideTag text-brand-muted block"
+                  >Check-out</span
+                >
+                <span class="font-serif text-xl text-white font-normal"
+                  >11:00 AM</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Premium Black-and-White Booking Inquiry Form -->
+          <div
+            class="lg:col-span-7 bg-brand-surface border border-hairline p-8 sm:p-12"
+            style="
+              background-color: rgb(27, 29, 34);
+              border-color: rgba(255, 255, 255, 0.18);
+            "
+          >
+            <form
+              id="booking-form"
+              onsubmit="handleBookingSubmit(event)"
+              class="space-y-6"
+            >
+              <div class="pb-2">
+                <h3
+                  class="font-serif text-2xl uppercase text-white font-normal"
+                >
+                  Reservation Inquiry
+                </h3>
+                <p class="text-xs font-sans text-brand-muted font-light mt-1">
+                  Our front desk concierge will confirm suite availability
+                  within moments.
+                </p>
+              </div>
+
+              <!-- Full Name & Email Address -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label
+                    for="form-name"
+                    class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                    >Full Name *</label
+                  >
+                  <input
+                    type="text"
+                    id="form-name"
+                    required=""
+                    placeholder="Aarav Sharma"
+                    class="w-full px-4 py-3.5 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors placeholder:text-white/20"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label
+                    for="form-email"
+                    class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                    >Email Address *</label
+                  >
+                  <input
+                    type="email"
+                    id="form-email"
+                    required=""
+                    placeholder="aarav@sanctuary.com"
+                    class="w-full px-4 py-3.5 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors placeholder:text-white/20"
+                  />
+                </div>
+              </div>
+
+              <!-- Phone Number & Number of Guests -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label
+                    for="form-phone"
+                    class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                    >Phone / WhatsApp *</label
+                  >
+                  <input
+                    type="tel"
+                    id="form-phone"
+                    required=""
+                    placeholder="+91 98765 43210"
+                    class="w-full px-4 py-3.5 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors placeholder:text-white/20"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label
+                    for="form-guests"
+                    class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                    >Number of Guests</label
+                  >
+                  <select
+                    id="form-guests"
+                    class="w-full px-4 py-3.5 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors cursor-pointer"
+                  >
+                    <option value="1 Guest">1 Guest</option>
+                    <option value="2 Guests" selected="">2 Guests</option>
+                    <option value="3 Guests">3 Guests</option>
+                    <option value="4+ Group">4+ Guests / Squad Retreat</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Check-in & Check-out Dates -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-2">
+                  <label
+                    for="form-checkin"
+                    class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                    >Check-in Date *</label
+                  >
+                  <input
+                    type="date"
+                    id="form-checkin"
+                    required=""
+                    value="2025-06-01"
+                    class="w-full px-4 py-3.5 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors cursor-pointer"
+                  />
+                </div>
+                <div class="space-y-2">
+                  <label
+                    for="form-checkout"
+                    class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                    >Check-out Date *</label
+                  >
+                  <input
+                    type="date"
+                    id="form-checkout"
+                    required=""
+                    value="2025-06-03"
+                    class="w-full px-4 py-3.5 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              <!-- Room Preference -->
+              <div class="space-y-2">
+                <label
+                  for="form-room"
+                  class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                  >Room Preference</label
+                >
+                <select
+                  id="form-room"
+                  class="w-full px-4 py-3.5 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors cursor-pointer"
+                >
+                  <option value="Deluxe Executive Chamber (₹3,500/night)">
+                    Deluxe Executive Chamber — ₹3,500 / night
+                  </option>
+                  <option value="Standard Executive Pad (₹2,500/night)">
+                    Standard Executive Pad — ₹2,500 / night
+                  </option>
+                  <option value="Super Deluxe Grand Residence (₹4,500/night)">
+                    Super Deluxe Grand Residence — ₹4,500 / night
+                  </option>
+                  <option value="Multiple Rooms / Corporate Booking">
+                    Multiple Rooms / Corporate Block
+                  </option>
+                </select>
+              </div>
+
+              <!-- Special Requests -->
+              <div class="space-y-2">
+                <label
+                  for="form-notes"
+                  class="text-[10px] uppercase tracking-wideTag text-brand-muted block font-sans"
+                  >Special Requests / Late Arrival Notes</label
+                >
+                <textarea
+                  id="form-notes"
+                  rows="3"
+                  placeholder="Anticipated midnight check-in, quiet room preference, extra bedding..."
+                  class="w-full px-4 py-3 bg-black border border-hairline text-white font-sans text-xs focus:outline-none focus:border-white transition-colors placeholder:text-white/20 resize-none"
+                ></textarea>
+              </div>
+
+              <!-- Prominent Submit Button -->
+              <button
+                type="submit"
+                class="w-full py-4 bg-white text-black text-xs font-sans font-semibold tracking-luxury uppercase hover:bg-black hover:text-white border border-white transition-all duration-300 shadow-xl"
+              >
+                Send Booking Request
+              </button>
+
+              <p
+                class="text-[10px] font-sans text-brand-muted text-center tracking-wide"
+              >
+                Dispatches inquiry instantaneously to our front desk team via
+                WhatsApp and secure concierge channel.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+       H. FOOTER (SOPHISTICATED BLACK & WHITE FOOTER)
+       ========================================================================= -->
+    <footer
+      class="w-full bg-brand-void border-t border-hairline py-20 px-6 sm:px-8 lg:px-12 text-white"
+    >
+      <div class="max-w-7xl mx-auto">
+        <!-- Top Columns -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-hairline"
+        >
+          <!-- Logo & Description (5 cols) -->
+          <div class="md:col-span-5 space-y-6">
+            <div class="flex items-center gap-3.5">
+              <div
+                class="w-8 h-8 rounded-sm bg-white p-1 flex items-center justify-center"
+              >
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtLz1lBbXKnx-c__X9kJePLYvjjH86En3M3Fms-4pSUsZYG-YKIH4HZNmPxprsXDR3i0ishUJbAgwQ9qScANL4k1qOyMp4O53zCe0JcSh22n7cZ1sFgiNqQr3fLqJtqGeSBiBTFB0f0MWwVr2ywPjLqRPZKRoHz9_pMt42S4w5iAGaJtmWqDCm1uS-YPekwHmE981ZXCqV32I_bH1_Zcgj9WLaO6U_1Lo7nSbDiJnbhuithG28LdhfNw"
+                  alt="Hotel Hider Monogram"
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <span
+                class="font-serif tracking-luxury text-lg uppercase text-white font-medium"
+                >HOTEL HIDER</span
+              >
+            </div>
+            <p
+              class="font-sans text-xs text-brand-muted leading-relaxed font-light max-w-sm"
+            >
+              An intimate luxury sanctuary designed for focused sprints,
+              acoustic quietude, and refined minimalism in Sector 8, IMT
+              Manesar, Gurugram.
+            </p>
+            <div class="pt-2 text-[11px] text-white/50 font-sans">
+              Plot 14, Sector 8, IMT Manesar, Gurugram, HR 122051
+            </div>
+          </div>
+
+          <!-- Quick Navigation Links (3 cols) -->
+          <div class="md:col-span-3 space-y-4">
+            <span
+              class="text-[10px] uppercase tracking-luxury text-white block font-medium"
+              >Navigation</span
+            >
+            <ul
+              class="space-y-2.5 text-xs text-brand-muted font-sans font-light"
+            >
+              <li class="">
+                <a href="#home" class="hover:text-white transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li class="">
+                <a href="#about" class="hover:text-white transition-colors"
+                  >About</a
+                >
+              </li>
+              <li class="">
+                <a href="#rooms" class="hover:text-white transition-colors"
+                  >Suites &amp; Rooms</a
+                >
+              </li>
+              <li class="">
+                <a href="#amenities" class="hover:text-white transition-colors"
+                  >Amenities</a
+                >
+              </li>
+              <li class="">
+                <a href="#gallery" class="hover:text-white transition-colors"
+                  >Visual Archive</a
+                >
+              </li>
+              <li class="">
+                <a href="#location" class="hover:text-white transition-colors"
+                  >Location</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact & Hours (4 cols) -->
+          <div class="md:col-span-4 space-y-4">
+            <span
+              class="text-[10px] uppercase tracking-luxury text-white block font-medium"
+              >Contact &amp; Connect</span
+            >
+            <div
+              class="space-y-2 text-xs text-brand-muted font-sans font-light"
+            >
+              <p class="">
+                Front Desk:
+                <a href="tel:+919876543210" class="text-white hover:underline"
+                  >+91 98765 43210</a
+                >
+              </p>
+              <p class="">
+                Inquiries:
+                <a
+                  href="mailto:concierge@hotelhider.com"
+                  class="text-white hover:underline"
+                  >concierge@hotelhider.com</a
+                >
+              </p>
+              <p class="">Operations: 24 Hours / 7 Days Active</p>
+            </div>
+            <!-- Social Icons -->
+            <div class="flex items-center gap-4 pt-4">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                aria-label="Instagram"
+                class="w-9 h-9 border border-hairline flex items-center justify-center text-brand-muted hover:text-white hover:border-white transition-colors"
+              >
+                <span class="text-xs font-mono">IG</span>
+              </a>
+              <a
+                href="https://wa.me/919876543210"
+                target="_blank"
+                aria-label="WhatsApp"
+                class="w-9 h-9 border border-hairline flex items-center justify-center text-brand-muted hover:text-white hover:border-white transition-colors"
+              >
+                <span class="text-xs font-mono">WA</span>
+              </a>
+              <a
+                href="https://maps.google.com"
+                target="_blank"
+                aria-label="Maps"
+                class="w-9 h-9 border border-hairline flex items-center justify-center text-brand-muted hover:text-white hover:border-white transition-colors"
+              >
+                <span class="text-xs font-mono">MAP</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div
+          class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-brand-muted"
+        >
+          <p class="">© 2025 Hotel Hider Sanctuary. All rights reserved.</p>
+          <div
+            class="flex items-center gap-6 text-[11px] uppercase tracking-wideTag"
+          >
+            <a href="#" class="hover:text-white transition-colors"
+              >Privacy Policy</a
+            >
+            <a href="#" class="hover:text-white transition-colors"
+              >Terms of Stay</a
+            >
+            <a href="#" class="hover:text-white transition-colors"
+              >Accessibility</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- =========================================================================
+       VANILLA JAVASCRIPT: 3D PARALLAX, SCROLLSPY, AMBIENT PARTICLES & FORM
+       ========================================================================= -->
+    <script>
+      // -------------------------------------------------------------
+      // 1. Mobile Menu Toggle
+      // -------------------------------------------------------------
+      const mobileToggle = document.getElementById("mobile-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-link");
+
+      if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      }
+
+      // -------------------------------------------------------------
+      // 2. 3D Mouse Parallax on Hero Section
+      // -------------------------------------------------------------
+      const heroSection = document.getElementById("home");
+      const heroParallax = document.getElementById("hero-parallax-wrapper");
+      const heroFloatingFrame = document.getElementById("hero-floating-frame");
+
+      if (heroSection && heroParallax) {
+        heroSection.addEventListener("mousemove", (e) => {
+          const { clientX, clientY } = e;
+          const { innerWidth, innerHeight } = window;
+
+          const offsetX = (clientX / innerWidth - 0.5) * 2; // -1 to +1
+          const offsetY = (clientY / innerHeight - 0.5) * 2; // -1 to +1
+
+          // Smooth 3D tilt & translation
+          heroParallax.style.transform = `scale(1.08) translate3d(${offsetX * -15}px, ${offsetY * -12}px, 0px) rotateY(${offsetX * 1.5}deg) rotateX(${offsetY * -1.5}deg)`;
+
+          if (heroFloatingFrame) {
+            heroFloatingFrame.style.transform = `translate3d(${offsetX * 18}px, ${offsetY * 18}px, 20px)`;
+          }
+        });
+
+        heroSection.addEventListener("mouseleave", () => {
+          heroParallax.style.transform =
+            "scale(1.05) translate3d(0, 0, 0) rotateY(0) rotateX(0)";
+          if (heroFloatingFrame) {
+            heroFloatingFrame.style.transform = "translate3d(0, 0, 0)";
+          }
+        });
+      }
+
+      // -------------------------------------------------------------
+      // 3. Ambient 3D Depth Particle Canvas on Hero
+      // -------------------------------------------------------------
+      const canvas = document.getElementById("hero-canvas");
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        let particles = [];
+        let w, h;
+
+        function resize() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        class Particle {
+          constructor() {
+            this.reset();
+          }
+          reset() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.z = Math.random() * 0.8 + 0.2; // depth
+            this.size = this.z * 1.6;
+            this.speedY = (Math.random() * 0.3 + 0.1) * this.z;
+            this.opacity = (Math.random() * 0.4 + 0.1) * this.z;
+          }
+          update() {
+            this.y -= this.speedY;
+            if (this.y < 0) {
+              this.y = h;
+              this.x = Math.random() * w;
+            }
+          }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.fill();
+          }
+        }
+
+        for (let i = 0; i < 40; i++) {
+          particles.push(new Particle());
+        }
+
+        function render() {
+          ctx.clearRect(0, 0, w, h);
+          particles.forEach((p) => {
+            p.update();
+            p.draw();
+          });
+          requestAnimationFrame(render);
+        }
+        render();
+      }
+
+      // -------------------------------------------------------------
+      // 4. ScrollSpy for Sticky Navigation Highlighting
+      // -------------------------------------------------------------
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      window.addEventListener("scroll", () => {
+        let current = "";
+        const scrollY = window.pageYOffset;
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 120;
+          const sectionHeight = section.offsetHeight;
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            current = section.getAttribute("id");
+          }
+        });
+
+        navLinks.forEach((link) => {
+          if (link.getAttribute("data-target") === current) {
+            link.classList.add("text-white");
+            link.classList.remove("text-brand-muted");
+          } else {
+            link.classList.remove("text-white");
+            link.classList.add("text-brand-muted");
+          }
+        });
+      });
+
+      // -------------------------------------------------------------
+      // 5. Preselect Room from Card CTA
+      // -------------------------------------------------------------
+      function preselectRoom(roomValue) {
+        const select = document.getElementById("form-room");
+        if (select) {
+          for (let i = 0; i < select.options.length; i++) {
+            if (
+              select.options[i].value.includes(roomValue) ||
+              roomValue.includes(select.options[i].text.split("—")[0].trim())
+            ) {
+              select.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+
+      // -------------------------------------------------------------
+      // 6. Direct WhatsApp Booking Dispatch
+      // -------------------------------------------------------------
+      function handleBookingSubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById("form-name").value;
+        const email = document.getElementById("form-email").value;
+        const phone = document.getElementById("form-phone").value;
+        const guests = document.getElementById("form-guests").value;
+        const checkin = document.getElementById("form-checkin").value;
+        const checkout = document.getElementById("form-checkout").value;
+        const room = document.getElementById("form-room").value;
+        const notes =
+          document.getElementById("form-notes").value ||
+          "Standard concierge allocation";
+
+        const message =
+          `*HOTEL HIDER — RESERVATION INQUIRY*%0A%0A` +
+          `• *Guest Name:* ${encodeURIComponent(name)}%0A` +
+          `• *Phone:* ${encodeURIComponent(phone)}%0A` +
+          `• *Email:* ${encodeURIComponent(email)}%0A` +
+          `• *Chamber Preference:* ${encodeURIComponent(room)}%0A` +
+          `• *Stay Dates:* ${encodeURIComponent(checkin)} to ${encodeURIComponent(checkout)}%0A` +
+          `• *Guests:* ${encodeURIComponent(guests)}%0A` +
+          `• *Special Requests:* ${encodeURIComponent(notes)}%0A%0A` +
+          `Please confirm availability, instantaneous rate hold, and digital key protocol.`;
+
+        window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
+      }
+    </script>
+  </body>
+</html>
