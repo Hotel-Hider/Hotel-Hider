@@ -1,13 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
+import logoWhite from '../assets/Hotel Hider Logos/Icon Only - WHITE.svg';
+import heroRoomImage from '../assets/Hotel Hider Images/Deluxe Room(3).jpeg';
+import standardRoomImage from '../assets/Hotel Hider Images/Standard Room(1).jpeg';
+import deluxeRoomImage from '../assets/Hotel Hider Images/Deluxe Room(4).jpeg';
+import familyRoomImage from '../assets/Hotel Hider Images/Family Room.jpeg';
+import restaurantImage from '../assets/Hotel Hider Images/Restaurant view.jpeg';
+import deluxeBathroomImage from '../assets/Hotel Hider Images/Deluxe Room Bathroom.jpeg';
+import roomDetailImage from '../assets/Hotel Hider Images/Standard Room(3).jpeg';
+import loungeImage from '../assets/Hotel Hider Images/Lounge Area (1).jpeg';
+import hallwayImage from '../assets/Hotel Hider Images/Hallway (1).jpeg';
+import buildingImage from '../assets/Hotel Hider Images/Hotel Hider Building View.jpeg';
 
-const asset = (name) => `/assets/Hotel%20Hider%20Images/${encodeURIComponent(name)}`;
-const logoBlack = '/assets/Hotel%20Hider%20Logos/Icon%20only%20-%20Black.svg';
+const imageAssets = {
+  'Deluxe Room(3).jpeg': heroRoomImage,
+  'Standard Room(1).jpeg': standardRoomImage,
+  'Deluxe Room(4).jpeg': deluxeRoomImage,
+  'Family Room.jpeg': familyRoomImage,
+  'Restaurant view.jpeg': restaurantImage,
+  'Deluxe Room Bathroom.jpeg': deluxeBathroomImage,
+  'Standard Room(3).jpeg': roomDetailImage,
+  'Lounge Area (1).jpeg': loungeImage,
+  'Hallway (1).jpeg': hallwayImage,
+  'Hotel Hider Building View.jpeg': buildingImage,
+};
+const asset = (name) => imageAssets[name];
+const hotelWhatsApp = '919289416060';
+const hotelPhoneLabel = '+91 92894 16060';
 
 const rooms = [
   {
     id: 'standard',
     number: '01',
     name: 'Standard Room',
+    rate: '₹2,500',
     size: '20 m²',
     bed: '1 Twin Bed',
     image: 'Standard Room(1).jpeg',
@@ -22,6 +47,7 @@ const rooms = [
     id: 'deluxe',
     number: '02',
     name: 'Deluxe Room',
+    rate: '₹3,500',
     size: '28 m²',
     bed: '1 Queen Bed',
     image: 'Deluxe Room(4).jpeg',
@@ -36,6 +62,7 @@ const rooms = [
     id: 'super-deluxe',
     number: '03',
     name: 'Super Deluxe Room',
+    rate: '₹4,500',
     size: '35 m²',
     bed: '1 King Bed + 1 Twin Bed',
     image: 'Family Room.jpeg',
@@ -47,6 +74,20 @@ const rooms = [
     extra: ['Sofa', 'Linen', 'Socket near the bed', 'Tile/marble floor', 'Desk', 'Seating area', 'Telephone', 'Ironing facilities', 'Iron', 'Heating', 'Fan', 'Extra-long beds (over 80 inches)', 'Wake-up service', 'Executive lounge access', 'Wardrobe or closet', 'Dining area', 'Clothes rack', 'Hand sanitizer', 'Upper floors accessible by elevator', 'Upper floors accessible by stairs only', 'Single-room air conditioning'],
   },
 ];
+
+function formatBookingMessage(details) {
+  return [
+    'Hotel Hider booking enquiry',
+    `Name: ${details.name}`,
+    `Contact: ${details.phone}`,
+    `Room: ${details.room}`,
+    `Rate: ${details.rate} per night + tax`,
+    `Guests: ${details.guests}`,
+    `Check-in: ${details.checkIn}`,
+    `Check-out: ${details.checkOut}`,
+    `Special notes: ${details.notes || 'None'}`,
+  ].join('\n');
+}
 
 const gallery = [
   { src: 'Restaurant view.jpeg', label: 'Dining room', wide: true },
@@ -65,6 +106,19 @@ const amenities = [
   ['bed', 'Thoughtful bedding', 'Fresh linen and room-specific bed options.'],
   ['checkroom', 'Room to get ready', 'Wardrobe, clothes rack and ironing facilities.'],
   ['elevator', 'Easy access', 'Upper floors accessible by elevator or stairs.'],
+];
+
+const nearbyPlaces = [
+  ['factory', 'IMT Manesar Tech & Auto Hub', 'Industrial core & corporate offices', '5–10 mins'],
+  ['subway', 'HUDA City Centre Metro', 'DMRC Yellow Line direct transit', '25 mins'],
+  ['flight_takeoff', 'IGI Airport Delhi (DEL)', 'Terminal 3 & Aerocity Hub', '35–40 mins'],
+  ['apartment', 'Cyber City Gurugram', 'DLF CyberHub & Golf Course Extension', '30 mins'],
+];
+
+const transitOptions = [
+  ['directions_car', 'By car', 'Direct via NH-48 Expressway'],
+  ['local_taxi', 'Airport cab', 'Prepaid or Uber / Ola'],
+  ['train', 'Metro + auto', 'Yellow Line to Millennium City'],
 ];
 
 const links = [
@@ -148,19 +202,16 @@ function Arrow({ diagonal = false }) {
 function Brand({ footer = false }) {
   return (
     <a className={`brand ${footer ? 'brand-footer' : ''}`} href="#home" aria-label="Hotel Hider home">
-      <span className="brand-mark"><img src={logoBlack} alt="" /></span>
+      <span className="brand-mark"><img src={logoWhite} alt="" /></span>
       <span className="brand-copy"><strong>HOTEL HIDER</strong><small>MANESAR · RESIDENCE</small></span>
     </a>
   );
 }
 
-function SectionIntro({ index, eyebrow, title, description }) {
+function SectionIntro({ title, description }) {
   return (
     <div className="section-intro" data-reveal="up">
-      <div className="section-title-block">
-        <div className="eyebrow"><span>{index} / {eyebrow}</span><i /></div>
-        <h2>{title}</h2>
-      </div>
+      <div className="section-title-block"><h2>{title}</h2></div>
       {description && <p className="section-description">{description}</p>}
     </div>
   );
@@ -189,6 +240,11 @@ function RoomCard({ room, reverse, onChoose }) {
             <div className="room-heading">
               <span className="eyebrow room-eyebrow">ROOM CATEGORY</span>
               <h3>{room.name}</h3>
+            </div>
+            <div className="room-area">
+              <span>RATE PER NIGHT</span>
+              <strong>{room.rate}</strong>
+              <small>+ tax</small>
             </div>
           </div>
           <div className="room-facts">
@@ -224,7 +280,6 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [selectedRoom, setSelectedRoom] = useState('');
   const [enquiry, setEnquiry] = useState(null);
-  const [copied, setCopied] = useState(false);
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const heroRef = useRef(null);
@@ -296,7 +351,6 @@ function App() {
     const formData = new FormData(event.currentTarget);
     const details = {
       name: String(formData.get('name') || '').trim(),
-      email: String(formData.get('email') || '').trim(),
       phone: String(formData.get('phone') || '').trim(),
       checkIn: String(formData.get('checkIn') || ''),
       checkOut: String(formData.get('checkOut') || ''),
@@ -304,19 +358,10 @@ function App() {
       room: String(formData.get('room') || ''),
       notes: String(formData.get('notes') || '').trim(),
     };
+    details.rate = rooms.find((room) => room.name === details.room)?.rate || 'Rate to confirm';
+    details.whatsappUrl = `https://wa.me/${hotelWhatsApp}?text=${encodeURIComponent(formatBookingMessage(details))}`;
     setEnquiry(details);
-    setCopied(false);
-  };
-
-  const copyEnquiry = async () => {
-    if (!enquiry) return;
-    const message = `Hotel Hider stay enquiry\nName: ${enquiry.name}\nEmail: ${enquiry.email}\nPhone: ${enquiry.phone}\nRoom: ${enquiry.room}\nGuests: ${enquiry.guests}\nCheck-in: ${enquiry.checkIn}\nCheck-out: ${enquiry.checkOut}\nSpecial requests: ${enquiry.notes || 'None'}`;
-    try {
-      await navigator.clipboard.writeText(message);
-      setCopied(true);
-    } catch {
-      setCopied(false);
-    }
+    window.open(details.whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -349,14 +394,10 @@ function App() {
               <a className="button button-outline" href="#contact">Book your stay <span>↗</span></a>
             </div>
           </div>
-          <div className="hero-bottom"><span>HOTEL HIDER · HOLDING IT ALL TOGETHER</span><a href="#about">SCROLL TO DISCOVER <b>↓</b></a><span>01 — 06</span></div>
+          <div className="hero-bottom"><a href="#about">SCROLL TO DISCOVER <b>↓</b></a></div>
         </section>
 
         <section className="intro section-pad" id="about">
-          {/* <div className="section-intro intro-label" data-reveal="up">
-            <div className="eyebrow"><span>01</span><i /></div>
-            <span className="section-overline">ARCHITECTURE &amp; PHILOSOPHY</span>
-          </div> */}
           <div className="intro-grid">
             <div className="intro-image-wrap tilt-card" data-reveal="up">
               <img src={asset('Hotel Hider Building View.jpeg')} alt="The Hotel Hider building in Manesar" loading="lazy" />
@@ -378,14 +419,14 @@ function App() {
         </section>
 
         <section className="rooms-section section-pad" id="rooms">
-          <SectionIntro index="02" eyebrow="ACCOMMODATIONS" title={<>Rooms &amp;<br /><em>suites.</em></>} description="Thoughtfully designed rooms with a considered mix of modern comforts and everyday essentials." />
+          <SectionIntro title={<>Rooms &amp;<br /><em>suites.</em></>} description="Thoughtfully designed rooms with a considered mix of modern comforts and everyday essentials." />
           <div className="room-list">
             {rooms.map((room, index) => <RoomCard key={room.id} room={room} reverse={index === 1} onChoose={chooseRoom} />)}
           </div>
         </section>
 
         <section className="amenities-section section-pad" id="amenities">
-          <SectionIntro index="03" eyebrow="CONVENIENCES" title={<>Curated<br /><em>amenities.</em></>} description="A thoughtful collection of in-room essentials, arranged to make settling in feel effortless." />
+          <SectionIntro title={<>Curated<br /><em>amenities.</em></>} description="A thoughtful collection of in-room essentials, arranged to make settling in feel effortless." />
           <div className="amenity-grid">
             {amenities.map(([icon, title, description], index) => <article className="amenity-card tilt-card" key={title} data-reveal="up" style={{ '--card-delay': `${(index % 4) * 70}ms` }}>
               <div className="amenity-icon"><span className="material-symbols-outlined">{icon}</span></div>
@@ -397,7 +438,7 @@ function App() {
         </section>
 
         <section className="gallery-section section-pad" id="gallery">
-          <SectionIntro index="04" eyebrow="VISUAL ARCHIVE" title={<>The spatial<br /><em>gallery.</em></>} description="A closer look at the rooms, dining spaces and thoughtful interiors at Hotel Hider." />
+          <SectionIntro title={<>The spatial<br /><em>gallery.</em></>} description="A closer look at the rooms, dining spaces and thoughtful interiors at Hotel Hider." />
           <div className="gallery-grid">
             {gallery.map((item, index) => <figure className={`gallery-item tilt-card ${item.wide ? 'gallery-wide' : ''}`} key={item.src} data-reveal="up" style={{ '--card-delay': `${(index % 3) * 80}ms` }}>
               <img src={asset(item.src)} alt={item.label} loading="lazy" />
@@ -407,59 +448,98 @@ function App() {
         </section>
 
         <section className="location-section section-pad" id="location">
-          <SectionIntro index="05" eyebrow="CONNECTIVITY" title={<>Location &amp;<br /><em>directions.</em></>} description="Find Hotel Hider in Sector 8, IMT Manesar, Gurugram." />
-          <div className="location-card" data-reveal="up">
-            <div className="location-image"><img src={asset('Hotel Hider Building View.jpeg')} alt="Hotel Hider, Manesar" loading="lazy" /><span className="map-pin"><i />H</span><span className="location-image-label">NH-48 · IMT MANESAR</span></div>
-            <div className="location-copy">
-              <span className="eyebrow">HOTEL HIDER · MANESAR</span>
-              <h3>Make yourself<br /><em>at home.</em></h3>
-              <p>Find us in Sector 8, IMT Manesar, Gurugram. For directions, open the map and search for Hotel Hider.</p>
-              <a className="button button-light" href="https://www.google.com/maps/search/?api=1&query=Hotel+Hider+Manesar" target="_blank" rel="noreferrer">Open in maps <Arrow diagonal /></a>
+          <SectionIntro title={<>Location &amp; <em>directions.</em></>} />
+          <div className="location-layout">
+            <article className="map-address-card" data-reveal="up">
+              <div className="location-map">
+                <img src={asset('Hotel Hider Building View.jpeg')} alt="Hotel Hider on NH-48 in IMT Manesar" loading="lazy" />
+                <div className="map-dots" aria-hidden="true" />
+                <div className="route-badge"><i />NH-48 DELHI–JAIPUR HIGHWAY CORRIDOR</div>
+                <div className="map-marker-group" aria-label="Hotel Hider, Sector 8, IMT Manesar">
+                  <span className="map-pulse" />
+                  <span className="map-marker material-symbols-outlined">apartment</span>
+                  <span className="map-marker-label"><strong>HOTEL HIDER SANCTUARY</strong><small>SECTOR 8 · IMT MANESAR HUB</small></span>
+                </div>
+                <a className="button button-light map-directions" href="https://maps.google.com/?q=Sector+8+IMT+Manesar+Gurugram" target="_blank" rel="noreferrer"><span className="material-symbols-outlined">explore</span> Get directions</a>
+              </div>
+              <div className="physical-address">
+                <div className="address-heading"><span className="eyebrow">PHYSICAL ADDRESS</span><span className="access-badge"><i />EASY TOLL ACCESS</span></div>
+                <h3>Sector 8, IMT Manesar, Gurugram</h3>
+                <p>Haryana 122051, India · Off NH-48 Delhi–Jaipur Highway, opposite G.S. Tower</p>
+              </div>
+            </article>
+            <div className="location-details">
+              <section className="proximity-card" data-reveal="up">
+                <div className="location-card-heading"><h3>Strategic proximity</h3><span>EST. DRIVE TIME</span></div>
+                <div className="proximity-list">
+                  {nearbyPlaces.map(([icon, name, detail, time]) => <div className="proximity-row" key={name}>
+                    <span className="material-symbols-outlined proximity-icon">{icon}</span>
+                    <span className="proximity-copy"><strong>{name}</strong><small>{detail}</small></span>
+                    <span className="proximity-time">{time}</span>
+                  </div>)}
+                </div>
+              </section>
+              <section className="transit-card" data-reveal="up">
+                <div className="location-card-heading"><h3>Transit guidance</h3><span>CONNECTIVITY MODES</span></div>
+                <div className="transit-grid">
+                  {transitOptions.map(([icon, title, detail]) => <article className="transit-option" key={title}>
+                    <span className="material-symbols-outlined transit-icon">{icon}</span>
+                    <strong>{title}</strong>
+                    <small>{detail}</small>
+                  </article>)}
+                </div>
+              </section>
             </div>
           </div>
         </section>
 
         <section className="contact-section section-pad" id="contact">
-          <div className="contact-heading" data-reveal="up">
-            <div className="eyebrow"><span>06 / RESERVATIONS &amp; CONCIERGE</span><i /></div>
-            <span className="section-overline">DIRECT FRONT DESK ENQUIRIES</span>
-              <h2>Begin your<br /><em>residence.</em></h2>
-            <p>Tell us a little about your visit and prepare a stay enquiry to share with Hotel Hider.</p>
-            <div className="contact-note"><span className="material-symbols-outlined note-mark">location_on</span><span><strong>Sector 8, IMT Manesar</strong><small>Gurugram, Haryana</small></span></div>
-            <a className="text-link contact-map-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Hider+Manesar" target="_blank" rel="noreferrer">Get directions <Arrow diagonal /></a>
-          </div>
-          <div className="enquiry-card" data-reveal="up">
-            {enquiry ? (
-              <div className="enquiry-success" aria-live="polite">
-                <span className="eyebrow">YOUR STAY, AT A GLANCE</span>
-                <div className="success-mark">✓</div>
-                <h3>Thank you, {enquiry.name}.</h3>
-                <p>Your enquiry details are ready to share with Hotel Hider. Please contact the hotel directly to check availability and confirm your stay.</p>
-                <dl className="enquiry-summary">
-                  <div><dt>Room</dt><dd>{enquiry.room}</dd></div>
-                  <div><dt>Guests</dt><dd>{enquiry.guests}</dd></div>
-                  <div><dt>Dates</dt><dd>{enquiry.checkIn} — {enquiry.checkOut}</dd></div>
-                </dl>
-                <button className="button button-light copy-button" onClick={copyEnquiry}>{copied ? 'Copied to clipboard ✓' : 'Copy enquiry details'} <Arrow diagonal /></button>
-                <button className="reset-link" onClick={() => setEnquiry(null)}>Edit enquiry</button>
+          <div className="concierge-panel" data-reveal="up">
+            <div className="contact-heading">
+              <span className="eyebrow concierge-kicker">DIRECT CONCIERGE</span>
+              <h2>Got questions or<br />booking a <em>stay?</em></h2>
+              <p>Share your preferred room and dates with Hotel Hider on WhatsApp to check availability and confirm your stay.</p>
+              <div className="concierge-facts">
+                <div className="concierge-fact"><span>ROOM CATEGORIES</span><strong>03</strong><small>Standard · Deluxe · Super Deluxe</small></div>
+                <div className="concierge-fact"><span>ROOM SIZES</span><strong>20–35 m²</strong><small>Space to settle in</small></div>
               </div>
-            ) : (
-              <>
-                <div className="form-heading"><div><span className="eyebrow">HOTEL HIDER · MANESAR</span><h3>Reservation inquiry</h3><p>Share your preferred room and dates of stay.</p></div><span className="form-star">✳</span></div>
-                <form onSubmit={submitEnquiry}>
-                  <label className="field">FULL NAME<input name="name" type="text" placeholder="Your name" autoComplete="name" required /></label>
-                  <label className="field">EMAIL ADDRESS<input name="email" type="email" placeholder="you@example.com" autoComplete="email" required /></label>
-                  <label className="field">PHONE / WHATSAPP<input name="phone" type="tel" placeholder="Your phone number" autoComplete="tel" required /></label>
-                  <label className="field">NUMBER OF GUESTS<select name="guests" defaultValue="2"><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4+">4+ guests</option></select></label>
-                  <label className="field">CHECK-IN<input name="checkIn" type="date" min={today} value={checkInDate ?? ''} onChange={(event) => { setCheckInDate(event.target.value); setCheckOutDate(''); }} required /></label>
-                  <label className="field">CHECK-OUT<input name="checkOut" type="date" min={earliestCheckout} value={checkOutDate ?? ''} onChange={(event) => setCheckOutDate(event.target.value)} required /></label>
-                  <label className="field field-wide">ROOM PREFERENCE<select name="room" value={selectedRoom ?? ''} onChange={(event) => setSelectedRoom(event.target.value)} required><option value="" disabled>Select a room</option>{rooms.map((room) => <option value={room.name} key={room.id}>{room.name} · {room.size}</option>)}</select></label>
-                  <label className="field field-wide">SPECIAL REQUESTS / NOTES<textarea name="notes" rows="3" placeholder="Anything you’d like us to know?" /></label>
-                  <button className="button button-light form-submit" type="submit">Prepare stay enquiry <Arrow diagonal /></button>
-                </form>
-                <p className="form-footnote">Your details stay in this browser. Copy them to share your enquiry; this form does not send a booking request.</p>
-              </>
-            )}
+              <div className="contact-note"><span className="material-symbols-outlined note-mark">location_on</span><span><strong>Sector 8, IMT Manesar</strong><small>Gurugram, Haryana</small></span></div>
+              <a className="contact-note contact-call-note" href={`https://wa.me/${hotelWhatsApp}`} target="_blank" rel="noreferrer"><span className="material-symbols-outlined note-mark">chat</span><span><strong>WhatsApp Hotel Hider</strong><small>{hotelPhoneLabel}</small></span></a>
+              <a className="text-link contact-map-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Hider+Manesar" target="_blank" rel="noreferrer">Get directions <Arrow diagonal /></a>
+            </div>
+            <div className="enquiry-card">
+              {enquiry ? (
+                <div className="enquiry-success" aria-live="polite">
+                  <span className="eyebrow">BOOKING MESSAGE READY</span>
+                  <div className="success-mark">✓</div>
+                  <h3>Thanks, {enquiry.name}.</h3>
+                  <p>Your booking details are ready in WhatsApp. Review the message and tap send to contact Hotel Hider. If WhatsApp didn’t open, use the button below.</p>
+                  <dl className="enquiry-summary">
+                    <div><dt>Room</dt><dd>{enquiry.room}</dd></div>
+                    <div><dt>Rate</dt><dd>{enquiry.rate} / night + tax</dd></div>
+                    <div><dt>Guests</dt><dd>{enquiry.guests}</dd></div>
+                    <div><dt>Dates</dt><dd>{enquiry.checkIn} — {enquiry.checkOut}</dd></div>
+                  </dl>
+                  <a className="button button-light copy-button" href={enquiry.whatsappUrl} target="_blank" rel="noreferrer"><span className="material-symbols-outlined">chat</span> Continue in WhatsApp</a>
+                  <button className="reset-link" onClick={() => setEnquiry(null)}>Edit enquiry</button>
+                </div>
+              ) : (
+                <>
+                  <div className="form-heading"><div><span className="eyebrow">HOTEL HIDER · MANESAR</span><h3>Plan your stay</h3><p>Share your preferences directly on WhatsApp.</p></div><span className="form-star material-symbols-outlined">chat</span></div>
+                  <form onSubmit={submitEnquiry}>
+                    <label className="field">YOUR NAME<input name="name" type="text" placeholder="Your name" autoComplete="name" required /></label>
+                    <label className="field">YOUR MOBILE NUMBER<input name="phone" type="tel" placeholder="Your phone number" autoComplete="tel" required /></label>
+                    <label className="field">ROOM PREFERENCE<select name="room" value={selectedRoom ?? ''} onChange={(event) => setSelectedRoom(event.target.value)} required><option value="" disabled>Select a room</option>{rooms.map((room) => <option value={room.name} key={room.id}>{room.name} · {room.size} · {room.rate} + tax/night</option>)}</select></label>
+                    <label className="field">NUMBER OF GUESTS<select name="guests" defaultValue="2"><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4+">4+ guests</option></select></label>
+                    <label className="field">CHECK-IN<input name="checkIn" type="date" min={today} value={checkInDate ?? ''} onChange={(event) => { setCheckInDate(event.target.value); setCheckOutDate(''); }} required /></label>
+                    <label className="field">CHECK-OUT<input name="checkOut" type="date" min={earliestCheckout} value={checkOutDate ?? ''} onChange={(event) => setCheckOutDate(event.target.value)} required /></label>
+                    <label className="field field-wide">SPECIAL NOTES (OPTIONAL)<textarea name="notes" rows="3" placeholder="Anything you’d like the hotel to know?" /></label>
+                    <button className="button button-light form-submit" type="submit"><span className="material-symbols-outlined">chat</span> Book via WhatsApp</button>
+                  </form>
+                  <p className="form-footnote">WhatsApp opens to Hotel Hider with your details prefilled. Review the message and tap send; it isn’t sent automatically.</p>
+                </>
+              )}
+            </div>
           </div>
         </section>
       </main>
