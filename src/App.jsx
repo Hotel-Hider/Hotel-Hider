@@ -460,7 +460,7 @@ function App() {
                   <span className="map-marker material-symbols-outlined">apartment</span>
                   <span className="map-marker-label"><strong>HOTEL HIDER SANCTUARY</strong><small>SECTOR 8 · IMT MANESAR HUB</small></span>
                 </div>
-                <a className="button button-light map-directions" href="https://maps.google.com/?q=Sector+8+IMT+Manesar+Gurugram" target="_blank" rel="noreferrer"><span className="material-symbols-outlined">explore</span> Get directions</a>
+                <a className="button button-light map-directions" href="https://maps.app.goo.gl/tmUKkNFjrB28oCdz7" target="_blank" rel="noreferrer"><span className="material-symbols-outlined">explore</span> Get directions</a>
               </div>
               <div className="physical-address">
                 <div className="address-heading"><span className="eyebrow">PHYSICAL ADDRESS</span><span className="access-badge"><i />EASY TOLL ACCESS</span></div>
