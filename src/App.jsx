@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import logoWhite from '../assets/Hotel Hider Logos/Icon Only - WHITE.svg';
+import logoBlack from '../assets/Hotel Hider Logos/Icon only - Black.svg';
 const hotelImages = Object.entries(import.meta.glob('../assets/Hotel Hider Images/*.{jpeg,jpg,png,webp}', {
   eager: true,
   import: 'default',
@@ -203,7 +203,7 @@ function Arrow({ diagonal = false }) {
 function Brand({ footer = false, homeHref = '#home' }) {
   return (
     <a className={`brand ${footer ? 'brand-footer' : ''}`} href={homeHref} aria-label="Hotel Hider home">
-      <span className="brand-mark"><img src={logoWhite} alt="" /></span>
+      <span className="brand-mark"><img src={logoBlack} alt="" /></span>
       <span className="brand-copy"><strong>HOTEL HIDER</strong><small>MANESAR · RESIDENCE</small></span>
     </a>
   );
