@@ -86,6 +86,14 @@ const gallery = [
   { src: 'Hallway (1).jpeg', label: 'Thoughtful details' },
 ];
 
+const heroSlides = [
+  { image: 'Deluxe Room(3).jpeg', alt: 'A welcoming Hotel Hider guest room' },
+  { image: 'Hotel Hider Building View.jpeg', alt: 'Hotel Hider in IMT Manesar' },
+  { image: 'Restaurant view.jpeg', alt: 'The restaurant at Hotel Hider' },
+  { image: 'Lounge Area (1).jpeg', alt: 'The Hotel Hider guest lounge' },
+  { image: 'Standard Room(1).jpeg', alt: 'A bright Hotel Hider standard room' },
+];
+
 function roomImages(room) {
   return hotelImages.filter((image) => room.detailImagePattern.test(image.name));
 }
@@ -219,9 +227,9 @@ function AmenityGroup({ title, items }) {
   );
 }
 
-function RoomCard({ room, reverse, onChoose }) {
+function RoomCard({ room, onChoose }) {
   return (
-    <article className={`room-card tilt-card ${reverse ? 'room-card-reverse' : ''}`} id={`room-${room.id}`} data-reveal="up">
+    <article className="room-card tilt-card" id={`room-${room.id}`} data-reveal="up">
       <div className="room-photo">
         <img src={asset(room.image)} alt={room.alt} loading="lazy" />
         <span className="photo-index">NO. {room.number} · {room.name.toUpperCase()}</span>
@@ -239,11 +247,6 @@ function RoomCard({ room, reverse, onChoose }) {
               <strong>{room.rate}</strong>
               <small>+ tax</small>
             </div>
-          </div>
-          <div className="room-facts">
-            <div><span className="material-symbols-outlined">square_foot</span><strong>{room.size}</strong><span>Room size</span></div>
-            <i>•</i>
-            <div><span className="material-symbols-outlined">bed</span><strong>{room.bed}</strong></div>
           </div>
           <p className="room-summary">{room.summary}</p>
         </div>
@@ -343,6 +346,7 @@ function App() {
     const roomId = new URLSearchParams(window.location.search).get('room');
     return rooms.find((room) => room.id === roomId)?.name || '';
   });
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [enquiry, setEnquiry] = useState(null);
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
@@ -355,6 +359,14 @@ function App() {
     nextDay.setDate(nextDay.getDate() + 1);
     return new Date(nextDay.getTime() - nextDay.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   })() : today;
+
+  useEffect(() => {
+    if (window.location.pathname !== '/') return undefined;
+    const interval = window.setInterval(() => {
+      setActiveHeroSlide((current) => (current + 1) % heroSlides.length);
+    }, 2000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -453,7 +465,9 @@ function App() {
 
       <main>
         <section className="hero" id="home" ref={heroRef} onMouseMove={moveHero} onMouseLeave={resetHero}>
-          <div className="hero-image" ref={parallaxRef}><img src={asset('Deluxe Room(3).jpeg')} alt="A welcoming Hotel Hider guest room" loading="eager" /></div>
+          <div className="hero-image" ref={parallaxRef} aria-hidden="true">
+            {heroSlides.map((slide, index) => <img className={activeHeroSlide === index ? 'is-active' : ''} key={slide.image} src={asset(slide.image)} alt="" loading="eager" />)}
+          </div>
           <div className="hero-shade" />
           <AmbientParticles />
           <div className="hero-frame" ref={floatingFrameRef} />
@@ -488,7 +502,7 @@ function App() {
         <section className="rooms-section section-pad" id="rooms">
           <SectionIntro title={<>Rooms &amp;<br /><em>suites.</em></>} description="Thoughtfully designed rooms with a considered mix of modern comforts and everyday essentials." />
           <div className="room-list">
-            {rooms.map((room, index) => <RoomCard key={room.id} room={room} reverse={index === 1} onChoose={chooseRoom} />)}
+            {rooms.map((room) => <RoomCard key={room.id} room={room} onChoose={chooseRoom} />)}
           </div>
         </section>
 

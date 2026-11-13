@@ -603,3 +603,42 @@ body, button, input, select, textarea { font-family: var(--sans); }
   .room-detail-gallery { grid-template-columns: 1fr 1fr; }
   .all-gallery-item { min-height: 150px; }
 }
+
+/* The hero cycles through a small set of hotel scenes with a soft crossfade. */
+.hero-image img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  filter: brightness(.72) contrast(1.04);
+  transition: opacity .85s ease;
+}
+.hero-image img.is-active { opacity: 1; }
+.hero-shade {
+  background:
+    linear-gradient(to top, rgba(18,19,22,.7) 0%, transparent 54%, rgba(18,19,22,.35) 100%),
+    linear-gradient(to right, rgba(18,19,22,.4) 0%, transparent 50%, rgba(18,19,22,.38) 100%);
+}
+
+/* Present the suites as a vertical photo story instead of split horizontal cards. */
+.room-list { gap: 54px; }
+.room-card, .room-card-reverse {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+.room-card-reverse .room-photo, .room-card-reverse .room-content { order: 0; }
+.room-photo { width: 100%; min-height: 0; aspect-ratio: 2.15; flex: none; }
+.room-content { min-height: 0; gap: 27px; padding: clamp(26px,4vw,48px); }
+.room-title-row { align-items: center; }
+.room-summary { max-width: 620px; margin-top: 16px; font-size: 13px; }
+
+@media (max-width: 760px) {
+  .room-list { gap: 27px; }
+  .room-photo { aspect-ratio: 1.2; }
+  .room-content { padding: 24px 20px 20px; }
+  .room-title-row { align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image img { transition-duration: .01ms; }
+}
