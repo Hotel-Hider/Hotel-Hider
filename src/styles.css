@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  font-family: 'Sansation', Arial, sans-serif;
+  font-family: 'Roboto', Arial, sans-serif;
   color: #f3f4f6;
   background: #121316;
   font-synthesis: none;
@@ -13,8 +13,8 @@
   --muted: #aeb0b8;
   --line: rgba(255, 255, 255, .14);
   --white: #f7f7f8;
-  --serif: 'Sansation', Arial, sans-serif;
-  --sans: 'Sansation', Arial, sans-serif;
+  --serif: 'Roboto', Arial, sans-serif;
+  --sans: 'Roboto', Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -455,7 +455,7 @@ a:hover .arrow, button:hover .arrow { transform: translate(3px, -2px); }
   [data-reveal] { opacity: 1; transform: none; }
 }
 
-/* Sansation brings the whole interface onto a cleaner, more legible type system. */
+/* Roboto brings the whole interface onto a cleaner, more legible type system. */
 body, button, input, select, textarea { font-family: var(--sans); }
 .hero h1, .intro-copy h2, .section-title-block h2, .contact-heading h2,
 .room-heading h3, .physical-address h3, .room-area strong,
@@ -658,8 +658,8 @@ body, button, input, select, textarea { font-family: var(--sans); }
   --olive: #61765e;
   --olive-dark: #435842;
   --olive-pale: #e8eee5;
-  --serif: 'Sansation', Arial, sans-serif;
-  --sans: 'Sansation', Arial, sans-serif;
+  --serif: 'Roboto', Arial, sans-serif;
+  --sans: 'Roboto', Arial, sans-serif;
 }
 
 html, body { background: #f4f1e9; color: #293229; }
@@ -897,4 +897,54 @@ body { background: #f4f1e9; }
   [data-reveal] { opacity: 1; filter: none; transform: none; }
   .hero-frame, .hero-frame::after, .hero-bottom b { animation: none; }
   .hero-content .hero-kicker, .hero-content h1, .hero-content > p, .hero-content .hero-actions { animation: none; }
+}
+
+/* Keep the mobile gallery cards inside their grid tracks so the CTA has its own space. */
+@media (max-width: 760px) {
+  .gallery-grid {
+    grid-template-rows: none;
+    grid-auto-rows: clamp(150px, 42vw, 190px);
+    gap: 12px;
+  }
+  .gallery-item,
+  .gallery-item img {
+    min-height: 0;
+  }
+  .gallery-item {
+    height: 100%;
+  }
+  .gallery-more-wrap {
+    margin-top: 25px;
+  }
+}
+
+/* Use weight to make the key reading and action points easier to scan. */
+.hero h1,
+.intro-copy h2,
+.section-title-block h2,
+.contact-heading h2,
+.room-detail-heading h1,
+.all-gallery-heading h1 {
+  font-weight: 500;
+}
+.room-heading h3,
+.amenity-card h3,
+.physical-address h3,
+.detail-info-heading h2,
+.booking-sidebar-top h3,
+.form-heading h3,
+.enquiry-success h3 {
+  font-weight: 700;
+}
+.nav-link,
+.page-nav a,
+.button,
+.nav-cta,
+.eyebrow,
+.room-area strong,
+.room-tags span,
+.proximity-copy strong,
+.transit-option strong,
+.booking-check-times strong {
+  font-weight: 600;
 }
